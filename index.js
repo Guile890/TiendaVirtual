@@ -1,57 +1,53 @@
-const urlCategoria = 'https://api.mercadolibre.com/sites/MLM/categories'
-const urlProducto = 'https://api.mercadolibre.com/sites/MLM/search?category='
-const listaMuestra = document.getElementById('listaMuestra')
+const urlCategoria = "https://api.mercadolibre.com/sites/MLM/categories";
+const urlProducto = "https://api.mercadolibre.com/sites/MLM/search?category=";
+const listaMuestra = document.getElementById("listaMuestra");
 
 let arrayProductos = [];
+let UserProfile = "Mi perfil",
+    Logout = "Cerrar sesión";
 
 // class crearLista{
 //     constructor(Productos){
 
-
 //     }
-
 
 // }
 
-
-async function getCategoriasAPIMerca(){
-    let respuesta = await fetch(urlCategoria)
+async function getCategoriasAPIMerca() {
+    let respuesta = await fetch(urlCategoria);
     let data = await respuesta.json();
-    return data
+    return data;
 }
-async function getInfoCategoria(){
+async function getInfoCategoria() {
     let resultado = await getCategoriasAPIMerca();
-    console.log(resultado)    
+    console.log(resultado);
 }
 getInfoCategoria();
 
-
-async function getProductosByCategoria(id){
+async function getProductosByCategoria(id) {
     let urlIdProducto = urlProducto + id;
     let respuesta = await fetch(urlIdProducto);
     let data = await respuesta.json();
-    return data
+    return data;
 }
-async function getInfoProductos(id){
+async function getInfoProductos(id) {
     let resultado = await getProductosByCategoria(id);
     console.log(resultado);
-     arrayProductos = resultado.results;
-      
-    mostrarProductos(arrayProductos); 
+    arrayProductos = resultado.results;
+
+    mostrarProductos(arrayProductos);
     //  crearLista(arrayProductos);
 }
 
+function mostrarProductos() {
+    listaMuestra.innerHTML = "";
 
-
-function mostrarProductos(){
-    listaMuestra.innerHTML='';
-    
-        arrayProductos.forEach(element => {
+    arrayProductos.forEach((element) => {
         console.log(element.title);
         console.log(element.thumbnail);
         listaMuestra.innerHTML += `
         
-        <div class="col">
+        <div class="">
           <div class="card shadow-sm">
             <img src='${element.thumbnail}'>
             <div class="card-body">
@@ -65,12 +61,10 @@ function mostrarProductos(){
               </div>
             </div>
           </div>
-        `
-               });
+        `;
+    });
 }
 
+getInfoProductos("MLM1132");
 
-getInfoProductos('MLM1132');
-
-getInfoProductos('MLM1403');
-
+getInfoProductos("MLM1403");
