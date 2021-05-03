@@ -1,0 +1,32 @@
+.form-inline {
+    display: flex;
+    margin-left: auto;
+    padding-right: 10px;
+}
+
+.form-control {
+    margin-right: 10px;
+}
+
+.Sing-in-up {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+.navbar-dark .navbar-toggler {
+    color: white!important;
+}
+
+.card {
+    height: 350px;
+    width: 216px;
+    margin: 9px;
+}
+
+.card img {
+    max-height: 190px;
+}
+
+.flex-wrap {
+    justify-content: center;
+}
