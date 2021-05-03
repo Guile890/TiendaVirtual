@@ -1,5 +1,6 @@
 const urlCategoria = "https://api.mercadolibre.com/sites/MLM/categories";
 const urlProducto = "https://api.mercadolibre.com/sites/MLM/search?category=";
+
 const listaMuestra = document.getElementById("listaMuestra");
 
 let arrayProductos = [];
