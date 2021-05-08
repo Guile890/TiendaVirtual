@@ -1,44 +1,44 @@
-const urlCategoria = "https://api.mercadolibre.com/sites/MLM/categories";
-const urlProducto = "https://api.mercadolibre.com/sites/MLM/search?category=";
+// ``const urlCategoria = "https://api.mercadolibre.com/sites/MLM/categories";
+// const urlProducto = "https://api.mercadolibre.com/sites/MLM/search?category=";
 
-const listaMuestra = document.getElementById("listaMuestra");
+// const listaMuestra = document.getElementById("listaMuestra");
 
-let arrayProductos = [];
-let UserProfile = "Mi perfil",
-    Logout = "Cerrar sesión";
+// let arrayProductos = [];
+// let UserProfile = "Mi perfil",
+//     Logout = "Cerrar sesión";
 
-// class crearLista{
-//     constructor(Productos){
+// // class crearLista{
+// //     constructor(Productos){
 
-//     }
+// //     }
 
+// // }
+
+// async function getCategoriasAPIMerca() {
+//     let respuesta = await fetch(urlCategoria);
+//     let data = await respuesta.json();
+//     return data;
 // }
+// async function getInfoCategoria() {
+//     let resultado = await getCategoriasAPIMerca();
+//     console.log(resultado);
+// }
+// getInfoCategoria();
 
-async function getCategoriasAPIMerca() {
-    let respuesta = await fetch(urlCategoria);
-    let data = await respuesta.json();
-    return data;
-}
-async function getInfoCategoria() {
-    let resultado = await getCategoriasAPIMerca();
-    console.log(resultado);
-}
-getInfoCategoria();
+// async function getProductosByCategoria(id) {
+//     let urlIdProducto = urlProducto + id;
+//     let respuesta = await fetch(urlIdProducto);
+//     let data = await respuesta.json();
+//     return data;
+// }
+// async function getInfoProductos(id) {
+//     let resultado = await getProductosByCategoria(id);
+//     console.log(resultado);
+//     arrayProductos = resultado.results;
 
-async function getProductosByCategoria(id) {
-    let urlIdProducto = urlProducto + id;
-    let respuesta = await fetch(urlIdProducto);
-    let data = await respuesta.json();
-    return data;
-}
-async function getInfoProductos(id) {
-    let resultado = await getProductosByCategoria(id);
-    console.log(resultado);
-    arrayProductos = resultado.results;
-
-    mostrarProductos(arrayProductos);
-    //  crearLista(arrayProductos);
-}
+//     mostrarProductos(arrayProductos);
+//     //  crearLista(arrayProductos);
+// }
 
 function mostrarProductos() {
     listaMuestra.innerHTML = "";
@@ -65,6 +65,20 @@ function mostrarProductos() {
     });
 }
 
-getInfoProductos("MLM1132");
+// getInfoProductos("MLM1132");
 
-getInfoProductos("MLM1403");
+// getInfoProductos("MLM1403");
+
+
+async function getCategoriasAPIMerca() {
+    let respuesta = await fetch('http://localhost:3000/categorias');
+    let data = await respuesta.json();
+    return data;
+}
+async function getInfoCategoria() {
+    let resultado = await getCategoriasAPIMerca();
+    console.log(resultado);
+}
+getInfoCategoria();
+
+
