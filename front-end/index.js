@@ -3,6 +3,7 @@
 
 const listaMuestra = document.getElementById("listaMuestra");
 const selectCategoria = document.getElementById("selectCategoria");
+const idCategoria = document.getElementById("categorias");
 let arrayProductos = [];
 let arregloCategorias = [];
 
@@ -61,21 +62,30 @@ async function getInfoCategoria() {
     
     let resultado = await getCategoriasAPIMerca();
     console.log(resultado);
-    for (let i=0; i<=5; i++){
-      arregloCategorias.push(resultado[i]);
-     
+    for (let i=1; i<=5; i++){
+      arregloCategorias.push(resultado[i]);     
     }
-    mostrarSelect();
     console.log(arregloCategorias);
+    mostrarSelect(arregloCategorias);
+    
   }
 
-  window.onload = function mostrarSelect(){
+  function mostrarSelect(){
   selectCategoria.innerHTML = "";
-  arregloCategorias.forEach((element) =>{
-    selectCategoria.innerHTML += `<option>${element.name}</option>`;
+  
+  arregloCategorias.forEach((element) => {
+    selectCategoria.innerHTML += `<button type="submit" class="btn btn-outline-primary value="${element.id}" onclick="obtenerProductos()">${element.name}</button>`;
   });
 
 }
+function obtenerProductos(){
+  console.log('estoy en obtener elementos');
+  
+}
+idCategoria.addEventListener('submit',(e)=>{
+    obtenerProductos();
+    e.preventDefault();
+}) 
 
 getInfoCategoria();
 

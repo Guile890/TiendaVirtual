@@ -54,3 +54,19 @@ app.get("/categorias",cors(midd.corsOptions), async function (req, res) {
     res.send(errorFinal);
   }
 });
+
+app.get("/productos/", cors(midd.corsOptions), async function (req,res){
+    try{
+        id = "MLM1132";
+        let productos = await serviciosMercadoLibre.getInfoProductos(id);
+        console.log("estos son los productos", productos);
+        res.send(productos);
+    }
+    catch(error){
+        let errorFinal = {
+            error: error.message,
+            message: "Error inesperado",
+          };
+          res.send(errorFinal);
+    }
+});
