@@ -1,29 +1,11 @@
 // ``const urlCategoria = "https://api.mercadolibre.com/sites/MLM/categories";
 // const urlProducto = "https://api.mercadolibre.com/sites/MLM/search?category=";
 
-// const listaMuestra = document.getElementById("listaMuestra");
+const listaMuestra = document.getElementById("listaMuestra");
+const selectCategoria = document.getElementById("selectCategoria");
+let arrayProductos = [];
+let arregloCategorias = [];
 
-// let arrayProductos = [];
-// let UserProfile = "Mi perfil",
-//     Logout = "Cerrar sesión";
-
-// // class crearLista{
-// //     constructor(Productos){
-
-// //     }
-
-// // }
-
-// async function getCategoriasAPIMerca() {
-//     let respuesta = await fetch(urlCategoria);
-//     let data = await respuesta.json();
-//     return data;
-// }
-// async function getInfoCategoria() {
-//     let resultado = await getCategoriasAPIMerca();
-//     console.log(resultado);
-// }
-// getInfoCategoria();
 
 // async function getProductosByCategoria(id) {
 //     let urlIdProducto = urlProducto + id;
@@ -76,9 +58,25 @@ async function getCategoriasAPIMerca() {
     return data;
 }
 async function getInfoCategoria() {
+    
     let resultado = await getCategoriasAPIMerca();
     console.log(resultado);
+    for (let i=0; i<=5; i++){
+      arregloCategorias.push(resultado[i]);
+     
+    }
+    mostrarSelect();
+    console.log(arregloCategorias);
+  }
+
+  window.onload = function mostrarSelect(){
+  selectCategoria.innerHTML = "";
+  arregloCategorias.forEach((element) =>{
+    selectCategoria.innerHTML += `<option>${element.name}</option>`;
+  });
+
 }
+
 getInfoCategoria();
 
 
