@@ -79,10 +79,9 @@ async function getInfoProductos(id) {
 
 function mostrarProductos() {
   listaMuestra.innerHTML = "";
-
   arrayProductos = JSON.parse(localStorage.getItem('rutina'));
   if(arrayProductos === null){
-
+    console.log('entrandoa if')
     arrayProductos = [];
 }else {
   arrayProductos.forEach((element) => {
@@ -145,7 +144,7 @@ async function getProductoBusqueda(cadena){
   let resultado = await getBusquedaProductos(cadena);
   console.log(resultado);  
   arrayProductos = resultado.results;
-  mostrarProductos(arrayProductos);
+  GuardarDB();
 }
 
 async function getBusquedaProductos(cadena){
@@ -158,7 +157,7 @@ async function getBusquedaProductos(cadena){
 
 const GuardarDB = () => {
   localStorage.setItem('rutina',JSON.stringify(arrayProductos));
-  mostrarProductos();
+  mostrarProductos(arrayProductos);
 };
 
 document.addEventListener('DOMContentLoaded', mostrarProductos);
