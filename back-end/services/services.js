@@ -23,7 +23,23 @@ async function getInfoProductos(id) {
     return resultado;
 }
 
-module.exports = { getInfoProductos, getInfoCategoria};
+
+async function getProductosBusqueda(cadena){
+    console.log('entrando a serviceess')
+    let resultado = await getProductosBusquedaCadena(cadena);
+    console.log(resultado);
+    return resultado;
+}
+async function getProductosBusquedaCadena(cadena){
+
+    let urlApiBusqueda = process.env.urlBusqueda + cadena;
+    let respuesta = await fetch(urlApiBusqueda);
+    let data = await respuesta.json();
+    return data;
+}
+
+
+module.exports = { getInfoProductos, getInfoCategoria, getProductosBusqueda };
 
 
 //getInfoProductos("MLM1132");
