@@ -55,10 +55,9 @@ app.get("/categorias",cors(midd.corsOptions), async function (req, res) {
   }
 });
 
-app.get("/productos/", cors(midd.corsOptions), async function (req,res){
+app.get("/productos/:id", cors(midd.corsOptions), async function (req,res){
     try{
-        id = "MLM1132";
-        let productos = await serviciosMercadoLibre.getInfoProductos(id);
+        let productos = await serviciosMercadoLibre.getInfoProductos(req.params.id);
         console.log("estos son los productos", productos);
         res.send(productos);
     }
