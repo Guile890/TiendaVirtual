@@ -1,27 +1,15 @@
 const urlBack = 'http://localhost:3000'
-const listaMuestra = document.getElementById("listaMuestra");
+const listaMuestraProducto = document.getElementById("listaMuestraProducto");
 const selectCategoria = document.getElementById("selectCategoria");
 const idCategoria = document.getElementById("categorias");
-const selectElement = document.querySelector('.opcionesCategorias')
+const selectElement = document.querySelector('.opcionesCategorias');
+const modal = document.getElementById('modal');
+
 
 
 let arrayProductos = [];
 let arregloCategorias = [];
 let arrayProducto = [];
-class crearItem{
-  constructor(id,title,img,price){
-    let item = {
-      idProducto: id,
-      tituloProducto: title,
-      imagenProducto: img,
-      precioProducto: price
- }
-arrayProducto.push(item);        
-return item;
-
-  }
-}
-
 
 async function getCategoriasAPIMerca() {
   let respuesta = await fetch('http://localhost:3000/categorias');
@@ -78,16 +66,16 @@ async function getInfoProductos(id) {
 }
 
 function mostrarProductos() {
-  listaMuestra.innerHTML = "";
+  listaMuestraProducto.innerHTML = "";
   arrayProductos = JSON.parse(localStorage.getItem('rutina'));
   if(arrayProductos === null){
     console.log('entrandoa if')
     arrayProductos = [];
 }else {
   arrayProductos.forEach((element) => {
-    console.log(element.title);
-    console.log(element.thumbnail);
-    listaMuestra.innerHTML += `
+    // console.log(element.title);
+    // console.log(element.thumbnail);
+    listaMuestraProducto.innerHTML += `
       
       <div class="">
         <div class="card shadow-sm">
@@ -96,12 +84,12 @@ function mostrarProductos() {
               <p class="card-text"><b>${element.title}</b></p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Agregar</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  <a href="" class="btn btn-sm btn-outline-secondary agregar-carrito" data-id="${element.id}">Agregar cesta</a>
+                  <button hidden="true" class="ver-detalle" type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Ver
                   </button>
                   <!-- Modal -->
-                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div hidden="false" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
@@ -125,12 +113,11 @@ function mostrarProductos() {
                     </div>
                   </div>
                 </div>
-                <small class="text-muted">${`$ ` + element.price}</small>
+                <small class="text-muted precio">${`$ ` + element.price}</small>
             </div>
           </div>
         </div>
       `;
-      new crearItem(element.id,element.title,element.thumbnail,element.price);
   });
   }
 }
@@ -159,5 +146,33 @@ const GuardarDB = () => {
   localStorage.setItem('rutina',JSON.stringify(arrayProductos));
   mostrarProductos(arrayProductos);
 };
+
+listaMuestraProducto.addEventListener('click',(e)=>{
+  if(e.target.classList.contains('agregar-carrito')){
+    const producto = e.target.parentElement.parentElement;
+    console.log(producto);  
+    Carrito(producto);
+  } else if (e.target.classList.contains('ver-detalle')){
+    const verProducto = e.target.parentElement.parentElement;
+    console.log(verProducto);
+    mostrarDetalles(verProducto);
+  }
+  
+  e.preventDefault();
+}) 
+
+function Carrito (producto){
+      const itemProducto = {
+          idProducto: producto.querySelector('a').getAttribute('data-id'),
+          tituloProducto: producto.querySelector('h5').textContent,
+          imagenProducto: producto.querySelector('img').src,
+          precioProducto: producto.querySelector('small').textContent,
+          cantidad: 1
+        }
+    arrayProducto.push(itemProducto); 
+    console.log(itemProducto);       
+  }
+
+  
 
 document.addEventListener('DOMContentLoaded', mostrarProductos);
