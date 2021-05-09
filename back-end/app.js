@@ -41,6 +41,7 @@ app.get("/",cors(midd.corsOptions), async function (req, res) {
   res.send(respuesta);
 });
 
+//end-point obtiene las categorias de ML
 app.get("/categorias",cors(midd.corsOptions), async function (req, res) {
   try {
     let categorias = await serviciosMercadoLibre.getInfoCategoria();
@@ -54,7 +55,7 @@ app.get("/categorias",cors(midd.corsOptions), async function (req, res) {
     res.send(errorFinal);
   }
 });
-
+//end-point obtiene los productos por id de ML
 app.get("/productos/:id", cors(midd.corsOptions), async function (req,res){
     try{
         let productos = await serviciosMercadoLibre.getInfoProductos(req.params.id);
@@ -68,4 +69,21 @@ app.get("/productos/:id", cors(midd.corsOptions), async function (req,res){
           };
           res.send(errorFinal);
     }
+});
+
+//end-point obtiene los productos por cadena de búsqueda
+app.get("/busqueda/:cadena", cors(midd.corsOptions), async function (req,res){
+  try{
+      console.log('entrando a servidor')
+      let productos = await serviciosMercadoLibre.getProductosBusqueda(req.params.cadena);
+      console.log("estos son los productos", productos);
+      res.send(productos);
+  }
+  catch(error){
+      let errorFinal = {
+          error: error.message,
+          message: "Error inesperado",
+        };
+        res.send(errorFinal);
+  }
 });
