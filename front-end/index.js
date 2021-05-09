@@ -5,6 +5,21 @@ const selectElement = document.querySelector('.opcionesCategorias')
 
 let arrayProductos = [];
 let arregloCategorias = [];
+let arrayProducto = [];
+class crearItem{
+  constructor(id,title,img,price){
+    let item = {
+      idProducto: id,
+      tituloProducto: title,
+      imagenProducto: img,
+      precioProducto: price
+ }
+arrayProducto.push(item);        
+return item;
+
+  }
+}
+
 
 async function getCategoriasAPIMerca() {
     let respuesta = await fetch('http://localhost:3000/categorias');
@@ -36,6 +51,7 @@ function obtenerProductos(idCategoria){
   console.log('estoy en obtener elementos',idCategoria);
   getInfoProductos(idCategoria);
 }
+
 selectElement.addEventListener('change',(e)=>{
     const idCategoria = document.querySelector('.opcionesCategorias').value;
     console.log(idCategoria);
@@ -53,14 +69,20 @@ async function getInfoProductos(id) {
     let resultado = await getProductosByCategoria(id);
     console.log(resultado);
     arrayProductos = resultado.results;
-
-    mostrarProductos(arrayProductos);
+    
+    GuardarDB();
+     
     //  crearLista(arrayProductos);
 }
 
 function mostrarProductos() {
   listaMuestra.innerHTML = "";
 
+  arrayProductos = JSON.parse(localStorage.getItem('rutina'));
+  if(arrayProductos === null){
+
+    arrayProductos = [];
+}else {
   arrayProductos.forEach((element) => {
       console.log(element.title);
       console.log(element.thumbnail);
@@ -81,8 +103,14 @@ function mostrarProductos() {
           </div>
         </div>
       `;
+      new crearItem(element.id,element.title,element.thumbnail,element.price);
   });
+  }
 }
 
+const GuardarDB = () => {
+  localStorage.setItem('rutina',JSON.stringify(arrayProductos));
+  mostrarProductos();
+};
 
-
+document.addEventListener('DOMContentLoaded', mostrarProductos);
