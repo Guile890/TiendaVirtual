@@ -132,7 +132,7 @@ function buscar(){
   }
   else{
     swal({
-      text: "Ingresa una búsqueda válida (mín 3 caracteres)",
+      text: "Ingresa una búsqueda válida (mín. 3 caracteres)",
       icon: "error",
       button: "Ok!",
     });
