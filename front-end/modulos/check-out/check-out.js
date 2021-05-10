@@ -1,5 +1,5 @@
 const listaProductos = document.querySelector('#lista-carrito tbody');
-
+let cantidad;
 
 function inicio(){
       location.href='/front-end/index.html';
@@ -16,6 +16,7 @@ function obtenerProductosLocalStorage(){
 
     }
     return productoLS;
+    
   }
 //Leer el LocalStorage para no perder nuestro carrtio despues de refrescar la pagina
 function leerLocalStorage (){
@@ -44,6 +45,7 @@ function leerLocalStorage (){
       listaProductos.appendChild(row);
       
     });
+    
   }
 
   //Obtenemos el idProducto para eliminarlo de la cesta
@@ -54,9 +56,11 @@ function leerLocalStorage (){
       e.target.parentElement.parentElement.remove();
       producto = e.target.parentElement.parentElement;
       productoID = producto.querySelector('a').getAttribute('data-id');
+      cantidad = producto.querySelector('input').textContent;
       console.log(productoID);
     }
     eliminarProductoLocalStorage(productoID);
+    calcularTotal();
   });
 
   function eliminarProductoLocalStorage(productoID){
@@ -74,6 +78,8 @@ function leerLocalStorage (){
 }
 
 function calcularTotal(){
+    
+    console.log("Entrando a calcular total");
     let total= 0, subtotal=0, iva=0;
     let productoLS = obtenerProductosLocalStorage();
     for(let i = 0; i< productoLS.length; i++){
@@ -81,12 +87,33 @@ function calcularTotal(){
         total = total + element;
     }
     iva = parseFloat(total * 0.16).toFixed(2);
-    subtotal = parseFloat(total-igv).toFixed(2);
-    // document.getElementById('subtotal').innerHTML = '$'+subtotal;
-    // document.getElementById('iva').innerHTML = '$'+iva;
-    document.getElementById('total').innerHTML = '$'+total.toFixed(2);
+    subtotal = parseFloat(total-iva).toFixed(2);
+    console.log(total);
+    document.getElementById('subtotal').innerHTML = `$`+ subtotal;
+    document.getElementById('iva').innerHTML = `$`+ iva;
+    document.getElementById('total').innerHTML = `$`+ total.toFixed(2);
   }
-  
-  document.addEventListener('DOMContentLoaded', leerLocalStorage);
+  calcularTotal();
+  function Pago(){
+    
+    const checaCarrito = obtenerProductosLocalStorage();
+    if(checaCarrito.length === 0){
+
+      swal({
+        text: "El carrito esta vacio",
+        icon: "error",
+        button: "Ok!",
+        timer: 5000
+          });
+          location.href='/front-end/index.html';
+    }else{
+        swal({
+            text: "Compra realizada con exito",
+            button: "Ok!",
+            timer: 5000
+              });
+    }
+}
+  document.addEventListener('DOMContentLoaded',leerLocalStorage,calcularTotal);
 
   
