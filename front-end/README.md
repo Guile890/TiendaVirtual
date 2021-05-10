@@ -1,6 +1,6 @@
 # - Tecla-Do Libre -
 
-Este repositorio contiene el código de la tienda:
+Este repositorio contiene el código del front-end de nuestra tienda:
 
 
 
