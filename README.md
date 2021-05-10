@@ -19,7 +19,7 @@ A continuación encontraras una guía con los pasos a seguir para correr nuestro
 6. Con ayuda de la terminal accede a la ruta del backend  ({path}/back-end) y ejecuta el comando "npm i" para descargar todos los módulos necesarios
 7. Para correr el back-end ejecuta el comando "npm run dev"
 8. Para correr el front-ent, identifica el archivo index.html, presiona click derecho y da click en la Opción "Open with Live Server"
-9. Listo! puedes interactuar en nuestra página en http://127.0.0.1:5500/Front/index.html y visualizar la documentación de nuestra API en 'http://localhost:3300/doc'
+9. Listo! puedes interactuar con nuestra página en http://127.0.0.1:5500/Front/index.html y visualizar la documentación de nuestra API en 'http://localhost:3300/doc'
 
 
 
