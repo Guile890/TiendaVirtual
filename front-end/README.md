@@ -1,6 +1,6 @@
 # - Tecla-Do Libre -
 
-Este repositorio contiene el código de la tienda:
+Este repositorio contiene el código del frob-end de nuestra tienda:
 
 
 
