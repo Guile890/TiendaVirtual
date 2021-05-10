@@ -1,4 +1,5 @@
 const urlBack = 'http://localhost:3000'
+
 const listaMuestraProducto = document.getElementById("listaMuestraProducto");
 const selectCategoria = document.getElementById("selectCategoria");
 const idCategoria = document.getElementById("categorias");
@@ -8,49 +9,50 @@ const listaProductos = document.querySelector('#lista-carrito tbody');
 const carrito = document.getElementById('carrito');
 const vaciarCarritoBtn = document.getElementById('vaciar-carrito');
 
+
 let arrayProductos = [];
 let arregloCategorias = [];
 let arrayProducto = [];
-
-
+getInfoCategoria();
 async function getCategoriasAPIMerca() {
   let respuesta = await fetch('http://localhost:3000/categorias');
   let data = await respuesta.json();
   return data;
 }
-// async function getInfoCategoria() {
+async function getInfoCategoria() {
 
-//     let resultado = await getCategoriasAPIMerca();
-//     console.log(resultado);
-//     for (let i=1; i<=5; i++){
-//       arregloCategorias.push(resultado[i]);     
-//     }
-//     console.log(arregloCategorias);
-//     mostrarSelect(arregloCategorias);
+    let resultado = await getCategoriasAPIMerca();
+    console.log(resultado);
+    let random = Math.round(Math.random() * (15-1) );
+    for (let i=random; i<=15; i++){
+      arregloCategorias.push(resultado[i]);     
+    }
+    console.log(arregloCategorias);
+    mostrarSelect(arregloCategorias);
+  }
 
-//   }
+  function mostrarSelect(){
+  selectCategoria.innerHTML = "";
 
-//   function mostrarSelect(){
-//   selectCategoria.innerHTML = "";
+  arregloCategorias.forEach((element) => {
+    selectCategoria.innerHTML += `<button type="button" value="${element.id}" onclick="obtenerProductos(this)" id='mostrar' class="btn btn-outline-secondary">${element.name}</button>`;
+  });
 
-//   arregloCategorias.forEach((element) => {
-//     selectCategoria.innerHTML += `<button type="submit" id='mostrar' class="btn btn-outline-primary value="${element.id}" onclick="obtenerProductos()">${element.name}</button>`;
-//     // selectCategoria.innerHTML += `<option value="${element.id}">${element.name}</option>`
-//   });
-
-// }
-function obtenerProductos(idCategoria) {
+}
+function obtenerProductos(e) {
+  console.log('valor event',e.value)
+  const idCategoria = e.value;  
   console.log('estoy en obtener elementos', idCategoria);
   getInfoProductos(idCategoria);
 }
 
-selectElement.addEventListener('change',(e)=>{
-    const idCategoria = document.querySelector('.opcionesCategorias').value;
-    console.log(idCategoria);
-    obtenerProductos(idCategoria);
+// selectElement.addEventListener('click',(e)=>{
+//     const idCategoria = document.querySelector('.selectCategoria').value;
+//     console.log(idCategoria);
+//     obtenerProductos(idCategoria);
     
-    e.preventDefault();
-}) 
+//     e.preventDefault();
+// }) 
 
 async function getProductosByCategoria(id) {
   let respuesta = await fetch(urlBack+'/productos/' + id);
@@ -125,8 +127,17 @@ function mostrarProductos() {
 }
 function buscar(){
   let cadena = document.getElementById('search').value;
-  console.log('valor de input', cadena);   
-  getProductoBusqueda(cadena);
+  console.log('valor de input', cadena.length);
+  if(cadena.length > 2)   {
+    getProductoBusqueda(cadena);
+  }
+  else{
+    swal({
+      text: "Ingresa una búsqueda válida (mín. 3 caracteres)",
+      icon: "error",
+      button: "Ok!",
+    });
+  }
 }
 
 async function getProductoBusqueda(cadena){
