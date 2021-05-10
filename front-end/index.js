@@ -4,12 +4,14 @@ const selectCategoria = document.getElementById("selectCategoria");
 const idCategoria = document.getElementById("categorias");
 const selectElement = document.querySelector('.opcionesCategorias');
 const modal = document.getElementById('modal');
-
-
+const listaProductos = document.querySelector('#lista-carrito tbody');
+const carrito = document.getElementById('carrito');
+const vaciarCarritoBtn = document.getElementById('vaciar-carrito');
 
 let arrayProductos = [];
 let arregloCategorias = [];
 let arrayProducto = [];
+
 
 async function getCategoriasAPIMerca() {
   let respuesta = await fetch('http://localhost:3000/categorias');
@@ -67,7 +69,7 @@ async function getInfoProductos(id) {
 
 function mostrarProductos() {
   listaMuestraProducto.innerHTML = "";
-  arrayProductos = JSON.parse(localStorage.getItem('rutina'));
+  arrayProductos = JSON.parse(localStorage.getItem('listaProductos'));
   if(arrayProductos === null){
     console.log('entrandoa if')
     arrayProductos = [];
@@ -113,7 +115,7 @@ function mostrarProductos() {
                     </div>
                   </div>
                 </div>
-                <small class="text-muted precio">${`$ ` + element.price}</small>
+                <small class="text-muted precio" data-id="${element.price}">${`$ ` + element.price}</small>
             </div>
           </div>
         </div>
@@ -143,7 +145,7 @@ async function getBusquedaProductos(cadena){
 
 
 const GuardarDB = () => {
-  localStorage.setItem('rutina',JSON.stringify(arrayProductos));
+  localStorage.setItem('listaProductos',JSON.stringify(arrayProductos));
   mostrarProductos(arrayProductos);
 };
 
@@ -162,17 +164,95 @@ listaMuestraProducto.addEventListener('click',(e)=>{
 }) 
 
 function Carrito (producto){
+  
+  
       const itemProducto = {
           idProducto: producto.querySelector('a').getAttribute('data-id'),
           tituloProducto: producto.querySelector('h5').textContent,
           imagenProducto: producto.querySelector('img').src,
-          precioProducto: producto.querySelector('small').textContent,
+          precioProducto: producto.querySelector('small').getAttribute('data-id'),
           cantidad: 1
         }
+  
     arrayProducto.push(itemProducto); 
-    console.log(itemProducto);       
+    console.log(itemProducto);  
+   insertarCarrito(itemProducto);  
+     
   }
 
-  
+  function insertarCarrito(producto){
+    const row = document.createElement('tr');
+    row.innerHTML = `
+        <td>
+            <img src="${producto.imagenProducto} " width=100>
+        </td>
+        <td>${producto.tituloProducto}</td>
+        <td>${`$`+producto.precioProducto}</td> 
+        <td>
+          <a href="#" type="button" class="borrar-producto fas fa-times-circle" data-id=${+producto.idProducto}>Quitar</a>
+        <td>    
+            `;
+    listaProductos.appendChild(row);
+    guardarProductoLocalStorage(producto);
+  }
+
+  carrito.addEventListener('click',(e)=>{
+    eliminarProducto(e);
+  });
+
+  function eliminarProducto(e){
+    e.preventDefault();
+    let producto,productoID;
+    if(e.target.classList.contains('borrar-producto')){
+      e.target.parentElement.parentElement.remove();
+      producto = e.target.parentElement.parentElement;
+      productoID = producto.querySelector('a').getAttribute('data-id');
+    }
+    eliminarProductoLocalStorage(productoID);
+  }
+
+  vaciarCarritoBtn.addEventListener('click',(e)=>{
+    vaciarCarrito(e);
+  });
+
+  function vaciarCarrito(e){
+    e.preventDefault();
+
+    while(listaProductos.firstChild){
+      listaProductos.removeChild(listaProductos.firstChild);
+    }
+    return false
+
+  }
+
+  function guardarProductoLocalStorage (producto){
+    let productos;
+    productos = obtenerProductosLocalStorage();
+    productos.push(producto);
+    localStorage.setItem('productos',JSON.stringify(productos));
+  }
+
+  function obtenerProductosLocalStorage(){
+    let productoLS;
+
+    if(localStorage.getItem('productos')=== null){
+      productoLS = [];
+    }else{
+      productoLS = JSON.parse(localStorage.getItem('productos'));
+
+    }
+    return productoLS;
+  }
+
+  function eliminarProductoLocalStorage(productoID){
+    let productosLS;
+    productosLS = this.obtenerProductosLocalStorage();
+    productosLS.forEach(function(productoLS,index){
+      if(productoLS.id === productoID){
+        productosLS.splice(index,1);
+      }
+    });
+    localStorage.setItem('productos',JSON.stringify(productosLS));    
+}
 
 document.addEventListener('DOMContentLoaded', mostrarProductos);

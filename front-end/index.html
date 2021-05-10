@@ -46,15 +46,24 @@
 
                 <div class="row">
                     <div class="col-sm-5  py-4">
-                        <h4 class="text-white">Mi carrito</h4>
-                        <p class="text-muted">Aquí se muestran los articulos agregados por el usuario
-                        </p>
-                        <a href="/front-end/modulos/check-out/check-out.html" class="btn btn-primary btn-lg" tabindex="-1" role="button" aria-disabled="true">Check-out</a>
-                    </div>
-                    <div class="col-sm-5  py-4">
-                        <h4 class="text-white">Lista de deseos </h4>
-                        <p class="text-muted">Aquí se muestran los articulos que le gustan a el usuario
-                        </p>
+                        <h4 class="text-white">Mi Cesta</h4>
+                        <div id="carrito">
+                        <table id="lista-carrito" class="table">
+                            <thead>
+                                <tr>
+                                    <th>Imagen</th>
+                                    <th>Nombre</th>
+                                    <th>Precio</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+
+                        <a href="#" id="vaciar-carrito" class="btn btn-primary btn-block">Vaciar Carrito</a>
+                        <a href="/front-end/modulos/check-out/check-out.html" id="procesar-pedido" class="btn btn-danger btn-block">Procesar
+                            Compra</a>
+                        </div>
                     </div>
                     <div class="col-sm-2 py-4">
                         <h4 class="text-white">Nombre usuario</h4>
@@ -150,7 +159,7 @@
             <div class="">
                 <div class="row-cols-1">
                     <div id="listaMuestraProducto" class="d-flex flex-wrap"></div>
-                    <div id='modal'></div>
+                    
                 </div>
             </div>
         </div>

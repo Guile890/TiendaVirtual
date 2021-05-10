@@ -30,3 +30,15 @@
 .flex-wrap {
     justify-content: center;
 }
+
+th{
+    color: whitesmoke;
+}
+
+td{
+    color: whitesmoke;
+}
+
+body{
+    line-height: 1;
+}
