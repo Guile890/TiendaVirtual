@@ -8,12 +8,17 @@ const modal = document.getElementById('modal');
 const listaProductos = document.querySelector('#lista-carrito tbody');
 const carrito = document.getElementById('carrito');
 const vaciarCarritoBtn = document.getElementById('vaciar-carrito');
+// const compra = docuemnt.getElementById('procesar-pedido');
 
 
 let arrayProductos = [];
 let arregloCategorias = [];
 let arrayProducto = [];
 getInfoCategoria();
+
+//Consulta de nuestros EndPoints
+
+//Categoria
 async function getCategoriasAPIMerca() {
   let respuesta = await fetch('http://localhost:3000/categorias');
   let data = await respuesta.json();
@@ -31,6 +36,7 @@ async function getInfoCategoria() {
     mostrarSelect(arregloCategorias);
   }
 
+  //Botones de categorias
   function mostrarSelect(){
   selectCategoria.innerHTML = "";
 
@@ -39,20 +45,14 @@ async function getInfoCategoria() {
   });
 
 }
+
+//Lista-Productos
 function obtenerProductos(e) {
   console.log('valor event',e.value)
   const idCategoria = e.value;  
   console.log('estoy en obtener elementos', idCategoria);
   getInfoProductos(idCategoria);
 }
-
-// selectElement.addEventListener('click',(e)=>{
-//     const idCategoria = document.querySelector('.selectCategoria').value;
-//     console.log(idCategoria);
-//     obtenerProductos(idCategoria);
-    
-//     e.preventDefault();
-// }) 
 
 async function getProductosByCategoria(id) {
   let respuesta = await fetch(urlBack+'/productos/' + id);
@@ -65,10 +65,10 @@ async function getInfoProductos(id) {
     arrayProductos = resultado.results;
     
     GuardarDB();
-     
-    //  crearLista(arrayProductos);
+    
 }
 
+//Mostramos la lista de productos segun la categoria consultada
 function mostrarProductos() {
   
   listaMuestraProducto.innerHTML = "";
@@ -127,6 +127,8 @@ function mostrarProductos() {
   });
   }
 }
+
+// Barra de busqueda
 function buscar(){
   let cadena = document.getElementById('search').value;
   console.log('valor de input', cadena.length);
@@ -155,13 +157,13 @@ async function getBusquedaProductos(cadena){
   return data;
 }
 
-
-
+//Guardamos en el LocalStorage la informacion de nuestra categoria consultada
 const GuardarDB = () => {
   localStorage.setItem('listaProductos',JSON.stringify(arrayProductos));
   mostrarProductos(arrayProductos);
 };
 
+//Seleccion del articulo y consulta
 listaMuestraProducto.addEventListener('click',(e)=>{
   if(e.target.classList.contains('agregar-carrito')){
     const producto = e.target.parentElement.parentElement;
@@ -176,6 +178,7 @@ listaMuestraProducto.addEventListener('click',(e)=>{
   e.preventDefault();
 }) 
 
+//Obtenemos la informacion del producto agregado a la cesta
 function Carrito (producto){
       const itemProducto = {
           idProducto: producto.querySelector('a').getAttribute('data-id'),
@@ -205,6 +208,7 @@ function Carrito (producto){
     
   }
 
+  //Insertamos el producto seleccionado en el carrrito
   function insertarCarrito(producto){
     const row = document.createElement('tr');
     row.innerHTML = `
@@ -221,6 +225,7 @@ function Carrito (producto){
     guardarProductoLocalStorage(producto);
   }
 
+  //Obtenemos el idProducto para eliminarlo de la cesta
   carrito.addEventListener('click',(e)=>{
     e.preventDefault();
     let producto,productoID;
@@ -233,6 +238,7 @@ function Carrito (producto){
     eliminarProductoLocalStorage(productoID);
   });
 
+  //Boton para quitar todos los articulos que se encuentran en la cesta
   vaciarCarritoBtn.addEventListener('click',(e)=>{
     e.preventDefault();
     
@@ -245,6 +251,7 @@ function Carrito (producto){
     
   });
 
+  //Se guardan los productos agregados en la cesta en el LocalStorage 
   function guardarProductoLocalStorage (producto){
     let productos;
     productos = obtenerProductosLocalStorage();
@@ -252,6 +259,7 @@ function Carrito (producto){
     localStorage.setItem('productos',JSON.stringify(productos));
   }
 
+  //Obtenemos los productos que se encuentran guardados en el LocalStorage
   function obtenerProductosLocalStorage(){
     let productoLS;
 
@@ -264,6 +272,7 @@ function Carrito (producto){
     return productoLS;
   }
 
+  //Eliminar articulo en el LocalStorage
   function eliminarProductoLocalStorage(productoID){
     console.log('Entrando a eliminar LS');
     let productosLS;
@@ -278,6 +287,7 @@ function Carrito (producto){
     localStorage.setItem('productos',JSON.stringify(productosLS));    
 }
 
+//Leer el LocalStorage para no perder nuestro carrtio despues de refrescar la pagina
 function leerLocalStorage (){
   
   let productosLS;
@@ -299,4 +309,19 @@ function leerLocalStorage (){
   });
 }
 
+//Boton Procesar-compra
+function compra(){
+    
+    const checaCarrito = this.obtenerProductosLocalStorage();
+    if(checaCarrito.length === 0){
+
+      swal({
+        text: "El carrito esta vacio",
+        icon: "error",
+        button: "Ok!",
+          });
+    }else{
+      location.href='/front-end/modulos/check-out/check-out.html';
+    }
+}
 document.addEventListener('DOMContentLoaded', mostrarProductos, leerLocalStorage());

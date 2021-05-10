@@ -14,6 +14,7 @@
 
     <!-- Bootstrap core CSS -->
 <link href="/front-end/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/front-end/assets/dist/css/bootstrap.modify-checkout.css">
 
     <style>
       .bd-placeholder-img {
@@ -40,7 +41,7 @@
 <div class="container">
   <main>
     <div class="py-5 text-center">
-      <img class="d-block mx-auto mb-4" src="/front-end/assets/icons/cart-icon.png" alt="" width="96" height="99">
+      <img onclick="inicio()" class="d-block mx-auto mb-4" src="/front-end/assets/icons/cart-icon.png" alt="" width="96" height="99">
       <h2>Checkout Tecla-Do Libre</h2>
       <p class="lead">Dale un vistazo a tu carrito de compras antes de pagar.</p>
     </div>
@@ -51,33 +52,33 @@
           <span class="text-muted">Tu carrito</span>
           <span class="badge bg-secondary rounded-pill">3</span>
         </h4>
-        <ul class="list-group mb-3">
-          <li class="list-group-item d-flex justify-content-between lh-sm">
-            <div>
-              <h6 class="my-0">Producto 1</h6>
-              <small class="text-muted">Descripción</small>
+          <div class="row">
+            <div class="col-sm-5  py-4">
+                <div id="carrito">
+                <table id="lista-carrito" class="table">
+                    <thead>
+                        <tr>
+                            <th>Imagen</th>
+                            <th>Nombre</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+               
+                </div>
+                
             </div>
-            <span class="text-muted">$12</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between lh-sm">
-            <div>
-              <h6 class="my-0">Producto 2</h6>
-              <small class="text-muted">Descripción</small>
+            <div class="input-group mb-3">
+              <span class="input-group-text">Total: </span>
+              <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+              <span class="input-group-text">.00</span>
             </div>
-            <span class="text-muted">$8</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between lh-sm">
-            <div>
-              <h6 class="my-0">Producto 3</h6>
-              <small class="text-muted">Descripción</small>
-            </div>
-            <span class="text-muted">$5</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between">
-            <span>Total (USD)</span>
-            <strong>$20</strong>
-          </li>
-        </ul>
+        </div>
+        
 
        
       </div>
@@ -229,6 +230,7 @@
 
     
     <script src="/front-end/assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="check-out.js"></script>
 
       <!-- <script src="form-validation.js"></script> -->
   </body>
