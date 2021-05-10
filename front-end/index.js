@@ -70,12 +70,14 @@ async function getInfoProductos(id) {
 }
 
 function mostrarProductos() {
+  
   listaMuestraProducto.innerHTML = "";
   arrayProductos = JSON.parse(localStorage.getItem('listaProductos'));
   if(arrayProductos === null){
     console.log('entrandoa if')
     arrayProductos = [];
 }else {
+  
   arrayProductos.forEach((element) => {
     // console.log(element.title);
     // console.log(element.thumbnail);
@@ -175,8 +177,6 @@ listaMuestraProducto.addEventListener('click',(e)=>{
 }) 
 
 function Carrito (producto){
-  
-  
       const itemProducto = {
           idProducto: producto.querySelector('a').getAttribute('data-id'),
           tituloProducto: producto.querySelector('h5').textContent,
@@ -184,11 +184,25 @@ function Carrito (producto){
           precioProducto: producto.querySelector('small').getAttribute('data-id'),
           cantidad: 1
         }
-  
-    arrayProducto.push(itemProducto); 
-    console.log(itemProducto);  
-   insertarCarrito(itemProducto);  
-     
+    // arrayProducto.push(itemProducto); 
+    // console.log(itemProducto);
+      let productosLS;
+      productosLS = this.obtenerProductosLocalStorage();
+      productosLS.forEach(function(productoLS){
+        if(productoLS.idProducto === itemProducto.idProducto){
+          productosLS = productoLS.idProducto;
+        }
+      });
+        if(productosLS === itemProducto.idProducto){
+          console.log('producto ya agregado');
+          swal({
+            text: "El articulo seleccionado ya se encuentra en la cesta",
+            button: "Ok!",
+          });
+        }else{
+          insertarCarrito(itemProducto); 
+        }
+    
   }
 
   function insertarCarrito(producto){
@@ -200,7 +214,7 @@ function Carrito (producto){
         <td>${producto.tituloProducto}</td>
         <td>${`$`+producto.precioProducto}</td> 
         <td>
-          <a href="#" type="button" class="borrar-producto fas fa-times-circle" data-id=${+producto.idProducto}>Quitar</a>
+          <a href="#" type="button" class="btn btn-sm btn-outline-secondary borrar-producto" data-id="${producto.idProducto}">Quitar</a>
         <td>    
             `;
     listaProductos.appendChild(row);
@@ -208,33 +222,28 @@ function Carrito (producto){
   }
 
   carrito.addEventListener('click',(e)=>{
-    eliminarProducto(e);
-  });
-
-  function eliminarProducto(e){
     e.preventDefault();
     let producto,productoID;
     if(e.target.classList.contains('borrar-producto')){
       e.target.parentElement.parentElement.remove();
       producto = e.target.parentElement.parentElement;
       productoID = producto.querySelector('a').getAttribute('data-id');
+      console.log(productoID);
     }
     eliminarProductoLocalStorage(productoID);
-  }
-
-  vaciarCarritoBtn.addEventListener('click',(e)=>{
-    vaciarCarrito(e);
   });
 
-  function vaciarCarrito(e){
+  vaciarCarritoBtn.addEventListener('click',(e)=>{
     e.preventDefault();
-
+    
     while(listaProductos.firstChild){
       listaProductos.removeChild(listaProductos.firstChild);
     }
+    localStorage.clear('productos');
+    GuardarDB();
     return false
-
-  }
+    
+  });
 
   function guardarProductoLocalStorage (producto){
     let productos;
@@ -256,14 +265,38 @@ function Carrito (producto){
   }
 
   function eliminarProductoLocalStorage(productoID){
+    console.log('Entrando a eliminar LS');
     let productosLS;
     productosLS = this.obtenerProductosLocalStorage();
+    console.log(productosLS);
     productosLS.forEach(function(productoLS,index){
-      if(productoLS.id === productoID){
+      if(productoLS.idProducto === productoID){
+        console.log(productoLS.id);
         productosLS.splice(index,1);
       }
     });
     localStorage.setItem('productos',JSON.stringify(productosLS));    
 }
 
-document.addEventListener('DOMContentLoaded', mostrarProductos);
+function leerLocalStorage (){
+  
+  let productosLS;
+  productosLS = this.obtenerProductosLocalStorage();
+  productosLS.forEach(function(producto){
+    const row = document.createElement('tr');
+    
+    row.innerHTML = `
+        <td>
+            <img src="${producto.imagenProducto} " width=100>
+        </td>
+        <td>${producto.tituloProducto}</td>
+        <td>${`$`+producto.precioProducto}</td> 
+        <td>
+          <a href="#" type="button" class="btn btn-sm btn-outline-secondary borrar-producto" data-id="${producto.idProducto}">Quitar</a>
+        <td>    
+            `;
+    listaProductos.appendChild(row);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', mostrarProductos, leerLocalStorage());
