@@ -48,9 +48,7 @@ async function getInfoCategoria() {
 
 //Lista-Productos
 function obtenerProductos(e) {
-  console.log('valor event',e.value)
   const idCategoria = e.value;  
-  console.log('estoy en obtener elementos', idCategoria);
   getInfoProductos(idCategoria);
 }
 
@@ -61,7 +59,6 @@ async function getProductosByCategoria(id) {
 }
 async function getInfoProductos(id) {
     let resultado = await getProductosByCategoria(id);
-    console.log(resultado);
     arrayProductos = resultado.results;
     
     GuardarDB();
@@ -74,13 +71,10 @@ function mostrarProductos() {
   listaMuestraProducto.innerHTML = "";
   arrayProductos = JSON.parse(localStorage.getItem('listaProductos'));
   if(arrayProductos === null){
-    console.log('entrandoa if')
     arrayProductos = [];
 }else {
   
   arrayProductos.forEach((element) => {
-    // console.log(element.title);
-    // console.log(element.thumbnail);
     listaMuestraProducto.innerHTML += `
       
       <div class="">
@@ -131,7 +125,6 @@ function mostrarProductos() {
 // Barra de busqueda
 function buscar(){
   let cadena = document.getElementById('search').value;
-  console.log('valor de input', cadena.length);
   if(cadena.length > 2)   {
     getProductoBusqueda(cadena);
   }
@@ -145,8 +138,7 @@ function buscar(){
 }
 
 async function getProductoBusqueda(cadena){
-  let resultado = await getBusquedaProductos(cadena);
-  console.log(resultado);  
+  let resultado = await getBusquedaProductos(cadena); 
   arrayProductos = resultado.results;
   GuardarDB();
 }
@@ -166,12 +158,10 @@ const GuardarDB = () => {
 //Seleccion del articulo y consulta
 listaMuestraProducto.addEventListener('click',(e)=>{
   if(e.target.classList.contains('agregar-carrito')){
-    const producto = e.target.parentElement.parentElement;
-    console.log(producto);  
+    const producto = e.target.parentElement.parentElement;  
     Carrito(producto);
   } else if (e.target.classList.contains('ver-detalle')){
     const verProducto = e.target.parentElement.parentElement;
-    console.log(verProducto);
     mostrarDetalles(verProducto);
   }
   
@@ -197,7 +187,6 @@ function Carrito (producto){
         }
       });
         if(productosLS === itemProducto.idProducto){
-          console.log('producto ya agregado');
           swal({
             text: "El articulo seleccionado ya se encuentra en la cesta",
             button: "Ok!",
@@ -233,7 +222,6 @@ function Carrito (producto){
       e.target.parentElement.parentElement.remove();
       producto = e.target.parentElement.parentElement;
       productoID = producto.querySelector('a').getAttribute('data-id');
-      console.log(productoID);
     }
     eliminarProductoLocalStorage(productoID);
   });
@@ -277,10 +265,8 @@ function Carrito (producto){
     console.log('Entrando a eliminar LS');
     let productosLS;
     productosLS = this.obtenerProductosLocalStorage();
-    console.log(productosLS);
     productosLS.forEach(function(productoLS,index){
       if(productoLS.idProducto === productoID){
-        console.log(productoLS.id);
         productosLS.splice(index,1);
       }
     });
