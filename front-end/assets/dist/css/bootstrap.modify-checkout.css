@@ -1,3 +1,13 @@
 body{
     line-height: 1;
 }
+
+.compras{
+    display: flex;
+}
+
+@media screen and (max-width: 768px) {
+    .compras{
+        display: block;
+    }
+}

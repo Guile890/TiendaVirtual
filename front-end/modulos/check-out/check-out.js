@@ -33,7 +33,7 @@ function leerLocalStorage (){
           <td>${producto.tituloProducto}</td>
           <td>${`$`+producto.precioProducto}</td> 
           <td>
-          <input type="number" id="cantidadArticulos" min="1" value="${producto.cantidad}">
+          <input type="number" style="width: 100%;" id="cantidadArticulos" min="1" value="${producto.cantidad}">
           </td>
           <td>
           ${`$`+ producto.precioProducto * producto.cantidad}
@@ -93,7 +93,7 @@ function calcularTotal(){
     document.getElementById('iva').innerHTML = `$`+ iva;
     document.getElementById('total').innerHTML = `$`+ total.toFixed(2);
   }
-  calcularTotal();
+ 
   function Pago(){
     
     const checaCarrito = obtenerProductosLocalStorage();
@@ -114,6 +114,7 @@ function calcularTotal(){
               });
     }
 }
+calcularTotal();
   document.addEventListener('DOMContentLoaded',leerLocalStorage,calcularTotal);
 
   
