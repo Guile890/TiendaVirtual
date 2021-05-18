@@ -57,7 +57,6 @@ function leerLocalStorage (){
       producto = e.target.parentElement.parentElement;
       productoID = producto.querySelector('a').getAttribute('data-id');
       cantidad = producto.querySelector('input').textContent;
-      console.log(productoID);
     }
     eliminarProductoLocalStorage(productoID);
     calcularTotal();
@@ -70,7 +69,6 @@ function leerLocalStorage (){
     console.log(productosLS);
     productosLS.forEach(function(productoLS,index){
       if(productoLS.idProducto === productoID){
-        console.log(productoLS.id);
         productosLS.splice(index,1);
       }
     });
@@ -78,8 +76,6 @@ function leerLocalStorage (){
 }
 
 function calcularTotal(){
-    
-    console.log("Entrando a calcular total");
     let total= 0, subtotal=0, iva=0;
     let productoLS = obtenerProductosLocalStorage();
     for(let i = 0; i< productoLS.length; i++){
@@ -88,7 +84,6 @@ function calcularTotal(){
     }
     iva = parseFloat(total * 0.16).toFixed(2);
     subtotal = parseFloat(total-iva).toFixed(2);
-    console.log(total);
     document.getElementById('subtotal').innerHTML = `$`+ subtotal;
     document.getElementById('iva').innerHTML = `$`+ iva;
     document.getElementById('total').innerHTML = `$`+ total.toFixed(2);

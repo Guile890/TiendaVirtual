@@ -160,6 +160,7 @@ listaMuestraProducto.addEventListener('click',(e)=>{
   if(e.target.classList.contains('agregar-carrito')){
     const producto = e.target.parentElement.parentElement;  
     Carrito(producto);
+    
   } else if (e.target.classList.contains('ver-detalle')){
     const verProducto = e.target.parentElement.parentElement;
     mostrarDetalles(verProducto);
