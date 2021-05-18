@@ -19,7 +19,6 @@ async function getProductosByCategoria(id) {
 }
 async function getInfoProductos(id) {
     let resultado = await getProductosByCategoria(id);
-    console.log(resultado);
     return resultado;
 }
 
@@ -27,7 +26,6 @@ async function getInfoProductos(id) {
 async function getProductosBusqueda(cadena){
     console.log('entrando a serviceess')
     let resultado = await getProductosBusquedaCadena(cadena);
-    console.log(resultado);
     return resultado;
 }
 async function getProductosBusquedaCadena(cadena){

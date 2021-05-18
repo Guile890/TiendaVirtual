@@ -5,7 +5,6 @@ module.exports.getInfoCategoria = async ()=>{
         let resultado = await sequelize.query('SELECT * FROM dbo.Categoria')
         return resultado
     }catch (err){
-        console.log(err)
         throw new Error ('Ocurrio un problema en la consulta con la DB')
     }
 }
@@ -16,7 +15,6 @@ module.exports.getInfoProductos = async (id)=>{
         let resultado = await sequelize.query('SELECT * FROM dbo.Producto where idCategoria ='+id)
         return resultado
     }catch (err){
-        console.log(err)
         throw new Error ('Ocurrio un problema en la consulta con la DB')
     }
 }
@@ -26,7 +24,6 @@ module.exports.getProductosBusqueda = async (cadena)=>{
         let resultado = await sequelize.query('SELECT * FROM dbo.Producto where descripcion LIKE %'+cadena+'%')
         return resultado
     }catch (err){
-        console.log(err)
         throw new Error ('Ocurrio un problema en la consulta con la DB')
     }
 }
