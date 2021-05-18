@@ -16,6 +16,8 @@ let arregloCategorias = [];
 let arrayProducto = [];
 getInfoCategoria();
 
+
+
 //Consulta de nuestros EndPoints
 
 //Categoria
