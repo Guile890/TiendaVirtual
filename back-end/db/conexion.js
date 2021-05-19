@@ -2,7 +2,7 @@
 const Sequelize = require('sequelize')
 
 
-const sequelize = new Sequelize('tecladolibre1', null, null, {
+const sequelize = new Sequelize('tecladolibre2', null, null, {
     dialect: 'mssql',
     server: process.env.DB_HOST,
     port: process.env.DB_PORT,
@@ -10,7 +10,6 @@ const sequelize = new Sequelize('tecladolibre1', null, null, {
       authentication: {
         type: 'default',
         options: {
-          encrypt: true,
           userName: process.env.DB_USER,
           password: process.env.DB_PASS
         }
