@@ -1,13 +1,29 @@
 const fetch = require('node-fetch');
 
+
+let Categorias = [];
+
+
+
+class Categoria {
+    constructor(id, nombre) {
+        this.id = id,
+        this.nombre = nombre
+    }
+}
 async function getCategoriasAPIMerca() {
     let respuesta = await fetch(process.env.urlCategoria);
     let data = await respuesta.json();
     return data;
 }
+
 async function getInfoCategoria() {
     let resultado = await getCategoriasAPIMerca();
-    return resultado;
+    Categorias = [];
+    resultado.forEach(element => {
+        Categorias.push(new Categoria(element.id, element.name));
+    });
+    return Categorias;
 }
 //getInfoCategoria();
 
@@ -19,7 +35,6 @@ async function getProductosByCategoria(id) {
 }
 async function getInfoProductos(id) {
     let resultado = await getProductosByCategoria(id);
-    console.log(resultado);
     return resultado;
 }
 
@@ -27,7 +42,6 @@ async function getInfoProductos(id) {
 async function getProductosBusqueda(cadena){
     console.log('entrando a serviceess')
     let resultado = await getProductosBusquedaCadena(cadena);
-    console.log(resultado);
     return resultado;
 }
 async function getProductosBusquedaCadena(cadena){
@@ -39,7 +53,7 @@ async function getProductosBusquedaCadena(cadena){
 }
 
 
-module.exports = { getInfoProductos, getInfoCategoria, getProductosBusqueda };
+module.exports = { getInfoProductos, getInfoCategoria, getProductosBusqueda,Categorias };
 
 
 //getInfoProductos("MLM1132");

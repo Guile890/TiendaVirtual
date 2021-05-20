@@ -37,7 +37,7 @@ async function getInfoCategoria() {
     let resultado = await getCategoriasAPIMerca();
     let random = Math.round(Math.random() * (15-1) );
     for (let i=random; i<=15; i++){
-      arregloCategorias.push(resultado[i]);     
+      arregloCategorias.push(resultado[i]);    
     }
     mostrarSelect(arregloCategorias);
   }
@@ -47,7 +47,7 @@ async function getInfoCategoria() {
   selectCategoria.innerHTML = "";
 
   arregloCategorias.forEach((element) => {
-    selectCategoria.innerHTML += `<button type="button" value="${element.id}" onclick="obtenerProductos(this)" id='mostrar' class="btn btn-outline-secondary">${element.name}</button>`;
+    selectCategoria.innerHTML += `<button type="button" value="${element.id}" onclick="obtenerProductos(this)" id='mostrar' class="btn btn-outline-secondary">${element.nombre}</button>`;
   });
 
 }
@@ -62,6 +62,7 @@ async function getProductosByCategoria(id) {
   let respuesta = await fetch(urlBack+'/productos/' + id);
   let data = await respuesta.json();
   return data;
+  
 }
 async function getInfoProductos(id) {
     let resultado = await getProductosByCategoria(id);
@@ -167,7 +168,6 @@ listaMuestraProducto.addEventListener('click',(e)=>{
     const producto = e.target.parentElement.parentElement;  
     const cesta = new Carrito();
     cesta.leerProducto(producto);
-    
   } else if (e.target.classList.contains('ver-detalle')){
     const verProducto = e.target.parentElement.parentElement;
     mostrarDetalles(verProducto);
