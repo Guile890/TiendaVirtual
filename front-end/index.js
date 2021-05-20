@@ -31,7 +31,7 @@ async function getInfoCategoria() {
     let resultado = await getCategoriasAPIMerca();
     console.log(resultado);
     let random = Math.round(Math.random() * (15-1) );
-    for (let i=random; i<=15; i++){
+    for (let i=0; i<=15; i++){
       arregloCategorias.push(resultado[i]);     
     }
     console.log(arregloCategorias);
@@ -43,7 +43,7 @@ async function getInfoCategoria() {
   selectCategoria.innerHTML = "";
 
   arregloCategorias.forEach((element) => {
-    selectCategoria.innerHTML += `<button type="button" value="${element.id}" onclick="obtenerProductos(this)" id='mostrar' class="btn btn-outline-secondary">${element.name}</button>`;
+    selectCategoria.innerHTML += `<button type="button" value="${element.idCategoria}" onclick="obtenerProductos(this)" id='mostrar' class="btn btn-outline-secondary">${element.descripcion}</button>`;
   });
 
 }

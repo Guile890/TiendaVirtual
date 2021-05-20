@@ -4,11 +4,13 @@ const app = express()
 require('dotenv').config()
 const sequelize = require('./db/conexion')
 const userRoutes = require('./routes/users.routes')
-const cors = require('cors');
 const midd = require('./midd/midd');
+const cors = require('cors');
+
 const serviciosMercadoLibre = require("./services/services");
 const swaggerUi = require('swagger-ui-express')
 const swaggerFile = require('./swagger_output.json')
+const productosRoutes = require('./routes/productos.routes')
 
 //middleware globales
 app.use(express.json());
@@ -34,6 +36,8 @@ inicioServidor();
 
 //Routes
 userRoutes(app);
+productosRoutes(app);
+
 
 
 // //middleware errores globales

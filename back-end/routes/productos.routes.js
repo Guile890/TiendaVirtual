@@ -1,5 +1,15 @@
 const productosServices = require('../services/productos.services')
+const express = require('express')
+const app = express()
 
+const midd = require('../midd/midd');
+const cors = require('cors');
+
+
+//middleware globales
+app.use(express.json());
+app.use(midd.limiter);
+app.use(cors());
 module.exports = (app) => {
     //end-point obtiene las categorias de ML
     app.get("/categorias", cors(midd.corsOptions), async function (req, res) {

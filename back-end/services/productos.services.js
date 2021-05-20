@@ -2,10 +2,10 @@ const sequelize = require('../db/conexion')
 
 module.exports.getInfoCategoria = async ()=>{
     try {
-        let resultado = await sequelize.query('SELECT * FROM dbo.Categoria')
+        let resultado = await sequelize.query('SELECT * FROM Categoria')
         return resultado
     }catch (err){
-        throw new Error ('Ocurrio un problema en la consulta con la DB')
+        throw new Error ('Ocurrio un problema en la consulta con la DB',err)
     }
 }
 
