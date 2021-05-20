@@ -1,13 +1,19 @@
 const urlBack = 'http://localhost:3000'
 
+
 const listaMuestraProducto = document.getElementById("listaMuestraProducto");
 const selectCategoria = document.getElementById("selectCategoria");
 const idCategoria = document.getElementById("categorias");
 const selectElement = document.querySelector('.opcionesCategorias');
 const modal = document.getElementById('modal');
+
 const listaProductos = document.querySelector('#lista-carrito tbody');
 const carrito = document.getElementById('carrito');
 const vaciarCarritoBtn = document.getElementById('vaciar-carrito');
+
+
+
+
 // const compra = docuemnt.getElementById('procesar-pedido');
 
 
@@ -29,12 +35,10 @@ async function getCategoriasAPIMerca() {
 async function getInfoCategoria() {
 
     let resultado = await getCategoriasAPIMerca();
-    console.log(resultado);
     let random = Math.round(Math.random() * (15-1) );
-    for (let i=0; i<=15; i++){
-      arregloCategorias.push(resultado[i]);     
+    for (let i=random; i<=15; i++){
+      arregloCategorias.push(resultado[i]);    
     }
-    console.log(arregloCategorias);
     mostrarSelect(arregloCategorias);
   }
 
@@ -43,7 +47,7 @@ async function getInfoCategoria() {
   selectCategoria.innerHTML = "";
 
   arregloCategorias.forEach((element) => {
-    selectCategoria.innerHTML += `<button type="button" value="${element.idCategoria}" onclick="obtenerProductos(this)" id='mostrar' class="btn btn-outline-secondary">${element.descripcion}</button>`;
+    selectCategoria.innerHTML += `<button type="button" value="${element.id}" onclick="obtenerProductos(this)" id='mostrar' class="btn btn-outline-secondary">${element.nombre}</button>`;
   });
 
 }
@@ -58,6 +62,7 @@ async function getProductosByCategoria(id) {
   let respuesta = await fetch(urlBack+'/productos/' + id);
   let data = await respuesta.json();
   return data;
+  
 }
 async function getInfoProductos(id) {
     let resultado = await getProductosByCategoria(id);
@@ -104,7 +109,6 @@ function mostrarProductos() {
                               <img src='${element.thumbnail}'>
                             </div>
                             <div class="col-sm-6">
-
                             </div>
                           </div>
                         </div>
@@ -161,8 +165,8 @@ const GuardarDB = () => {
 listaMuestraProducto.addEventListener('click',(e)=>{
   if(e.target.classList.contains('agregar-carrito')){
     const producto = e.target.parentElement.parentElement;  
-    Carrito(producto);
-    
+    const cesta = new Carrito();
+    cesta.leerProducto(producto);
   } else if (e.target.classList.contains('ver-detalle')){
     const verProducto = e.target.parentElement.parentElement;
     mostrarDetalles(verProducto);
@@ -170,52 +174,6 @@ listaMuestraProducto.addEventListener('click',(e)=>{
   
   e.preventDefault();
 }) 
-
-//Obtenemos la informacion del producto agregado a la cesta
-function Carrito (producto){
-      const itemProducto = {
-          idProducto: producto.querySelector('a').getAttribute('data-id'),
-          tituloProducto: producto.querySelector('h5').textContent,
-          imagenProducto: producto.querySelector('img').src,
-          precioProducto: producto.querySelector('small').getAttribute('data-id'),
-          cantidad: 1
-        }
-    // arrayProducto.push(itemProducto); 
-    // console.log(itemProducto);
-      let productosLS;
-      productosLS = this.obtenerProductosLocalStorage();
-      productosLS.forEach(function(productoLS){
-        if(productoLS.idProducto === itemProducto.idProducto){
-          productosLS = productoLS.idProducto;
-        }
-      });
-        if(productosLS === itemProducto.idProducto){
-          swal({
-            text: "El articulo seleccionado ya se encuentra en la cesta",
-            button: "Ok!",
-          });
-        }else{
-          insertarCarrito(itemProducto); 
-        }
-    
-  }
-
-  //Insertamos el producto seleccionado en el carrrito
-  function insertarCarrito(producto){
-    const row = document.createElement('tr');
-    row.innerHTML = `
-        <td>
-            <img src="${producto.imagenProducto} " width=100>
-        </td>
-        <td>${producto.tituloProducto}</td>
-        <td>${`$`+producto.precioProducto}</td> 
-        <td>
-          <a href="#" type="button" class="btn btn-sm btn-outline-secondary borrar-producto" data-id="${producto.idProducto}">Quitar</a>
-        <td>    
-            `;
-    listaProductos.appendChild(row);
-    guardarProductoLocalStorage(producto);
-  }
 
   //Obtenemos el idProducto para eliminarlo de la cesta
   carrito.addEventListener('click',(e)=>{
@@ -226,7 +184,8 @@ function Carrito (producto){
       producto = e.target.parentElement.parentElement;
       productoID = producto.querySelector('a').getAttribute('data-id');
     }
-    eliminarProductoLocalStorage(productoID);
+    const cesta = new Carrito();
+    cesta.eliminarProductoLocalStorage(productoID);
   });
 
   //Boton para quitar todos los articulos que se encuentran en la cesta
@@ -242,66 +201,12 @@ function Carrito (producto){
     
   });
 
-  //Se guardan los productos agregados en la cesta en el LocalStorage 
-  function guardarProductoLocalStorage (producto){
-    let productos;
-    productos = obtenerProductosLocalStorage();
-    productos.push(producto);
-    localStorage.setItem('productos',JSON.stringify(productos));
-  }
-
-  //Obtenemos los productos que se encuentran guardados en el LocalStorage
-  function obtenerProductosLocalStorage(){
-    let productoLS;
-
-    if(localStorage.getItem('productos')=== null){
-      productoLS = [];
-    }else{
-      productoLS = JSON.parse(localStorage.getItem('productos'));
-
-    }
-    return productoLS;
-  }
-
-  //Eliminar articulo en el LocalStorage
-  function eliminarProductoLocalStorage(productoID){
-    console.log('Entrando a eliminar LS');
-    let productosLS;
-    productosLS = this.obtenerProductosLocalStorage();
-    productosLS.forEach(function(productoLS,index){
-      if(productoLS.idProducto === productoID){
-        productosLS.splice(index,1);
-      }
-    });
-    localStorage.setItem('productos',JSON.stringify(productosLS));    
-}
-
-//Leer el LocalStorage para no perder nuestro carrtio despues de refrescar la pagina
-function leerLocalStorage (){
   
-  let productosLS;
-  productosLS = this.obtenerProductosLocalStorage();
-  productosLS.forEach(function(producto){
-    const row = document.createElement('tr');
-    
-    row.innerHTML = `
-        <td>
-            <img src="${producto.imagenProducto} " width=100>
-        </td>
-        <td>${producto.tituloProducto}</td>
-        <td>${`$`+producto.precioProducto}</td> 
-        <td>
-          <a href="#" type="button" class="btn btn-sm btn-outline-secondary borrar-producto" data-id="${producto.idProducto}">Quitar</a>
-        <td>    
-            `;
-    listaProductos.appendChild(row);
-  });
-}
 
 //Boton Procesar-compra
 function compra(){
-    
-    const checaCarrito = this.obtenerProductosLocalStorage();
+  const cesta = new Carrito();
+    const checaCarrito = cesta.obtenerProductosLocalStorage();
     if(checaCarrito.length === 0){
 
       swal({
@@ -313,4 +218,8 @@ function compra(){
       location.href='/front-end/modulos/check-out/check-out.html';
     }
 }
-document.addEventListener('DOMContentLoaded', mostrarProductos, leerLocalStorage());
+document.addEventListener('DOMContentLoaded', () =>{
+  mostrarProductos() ;
+  const cesta = new Carrito();
+  cesta.leerLocalStorage();
+} );

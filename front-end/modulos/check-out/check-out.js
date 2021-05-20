@@ -79,14 +79,11 @@ carrito.addEventListener('click',(e)=>{
       producto = e.target.parentElement.parentElement;
       id = producto.querySelector('a').getAttribute('data-id');
       cantidad = producto.querySelector('input').value;
-      // let actualizarMontos = producto.querySelectorAll('input').value;
-      // console.log(actualizarMontos);
       productosLS = this.obtenerProductosLocalStorage();
       productosLS.forEach(function(productoLS,index){
         if (productoLS.idProducto === id) {
           productoLS.cantidad = cantidad;
           let nuevoTotal = Number(cantidad * productosLS[index].precioProducto);
-          //actualizarMontos[index].value = '$' + nuevoTotal.toFixed(2);
           
         }
       });
@@ -122,16 +119,15 @@ function calcularTotal(){
       swal({
         text: "El carrito esta vacio",
         icon: "error",
-        button: "Ok!",
-        timer: 5000
+        button: "Ok!"
           });
           location.href='/front-end/index.html';
     }else{
         swal({
             text: "Compra realizada con exito",
-            button: "Ok!",
-            timer: 5000
+            button: "Ok!"
               });
+              location.href='/front-end/index.html';
     }
 }
 calcularTotal();
