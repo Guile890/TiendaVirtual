@@ -6,6 +6,7 @@ const sequelize = require('./db/conexion')
 const userRoutes = require('./routes/users.routes')
 const midd = require('./midd/midd');
 const cors = require('cors');
+const Usuarios = require('./db/db.usuarios')
 
 const serviciosMercadoLibre = require("./services/services");
 const swaggerUi = require('swagger-ui-express')
@@ -22,6 +23,7 @@ app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 //iniciar servidor
 async function inicioServidor(){
   try{
+      await Usuarios.sync({alter:true})
       await sequelize.authenticate();
       console.log('Conexión correcta con la db');
       app.listen(process.env.PORT,function(){

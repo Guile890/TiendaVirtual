@@ -3,7 +3,7 @@
   "info": {
     "version": "1.0.0",
     "title": "REST API",
-    "description": "Esta es la API de tecla-do libre"
+    "description": ""
   },
   "host": "localhost:3000",
   "basePath": "/",
@@ -14,26 +14,22 @@
   "consumes": [],
   "produces": [],
   "paths": {
-    "/": {
-      "get": {
-        "tags": [],
-        "description": "Punto de inicio de nuestra APl",
-        "parameters": [],
-        "responses": {}
-      }
-    },
     "/categorias": {
       "get": {
         "tags": [],
-        "description": "end-point que obtiene las categorias existentes en la tienda",
+        "description": "",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
       }
     },
     "/productos/{id}": {
       "get": {
         "tags": [],
-        "description": "end-point que obtiene los productos según el id de la categoria deseada",
+        "description": "",
         "parameters": [
           {
             "name": "id",
@@ -42,13 +38,17 @@
             "type": "string"
           }
         ],
-        "responses": {}
+        "responses": {
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
       }
     },
     "/busqueda/{cadena}": {
       "get": {
         "tags": [],
-        "description": "end point que obtiene los productos según la cadena de búsqueda ingresada",
+        "description": "",
         "parameters": [
           {
             "name": "cadena",
@@ -57,7 +57,43 @@
             "type": "string"
           }
         ],
+        "responses": {
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
         "responses": {}
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "400": {
+            "description": "Bad Request"
+          }
+        }
       }
     }
   },
