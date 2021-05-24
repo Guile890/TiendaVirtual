@@ -2,6 +2,7 @@
 const usersServices = require('../services/users.services')
 const middJsonAuth = require ('../midd/midd.jsonAuth')
 
+
 module.exports = (app) => {
     app.get('/', middJsonAuth.verificacionUsuario, async (req, res)=> {
         res.json('ok')
@@ -17,6 +18,7 @@ module.exports = (app) => {
     })
 
     app.post('/login', async (req,res)=>{
+        res.render('index');
         let usuario = req.body
         try {
             let resultado = await usersServices.verificarUsuario(usuario)
@@ -30,5 +32,17 @@ module.exports = (app) => {
             console.log(err)
             res.status(400).json('Usuario o contrasena incorrecta')
         }
+    })
+
+    app.post('/registro', async (req, res)=>{
+        let usuarioNuevo = req.body
+        try {
+            let resultado = await usuarioServicios.crearUsuario(usuarioNuevo)
+            res.status(200).json('usuario creado correctamente')
+        }catch (err){
+            console.log(err)
+            res.status(400).json('algo raro paso')
+        }
+
     })
 }

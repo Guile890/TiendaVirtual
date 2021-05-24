@@ -38,3 +38,19 @@ module.exports.generaToken = async (data)=>{
         throw new Error (err)
     }
 }
+
+module.exports.crearUsuario = async (usuarioNuevo)=>{
+    try {
+        let resultado = await this.verificarUsuario(usuarioNuevo)
+        if (resultado) {
+            throw new Error ('El usuario ya existe')
+        }else {
+            let usuarioResult = await dbUsuarios.newUsuario(usuarioNuevo)
+            return 'Usuario creado'
+        }
+
+    }catch (err){
+        console.log(err)
+        throw new Error ('no pude generar el usuario')
+    }
+}

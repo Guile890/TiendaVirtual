@@ -13,11 +13,20 @@ const swaggerUi = require('swagger-ui-express')
 const swaggerFile = require('./swagger_output.json')
 const productosRoutes = require('./routes/productos.routes')
 
+
 //middleware globales
 app.use(express.json());
 app.use(midd.limiter);
 app.use(cors());
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
+
+//configuraciones globales
+app.use(express.static(__dirname + '../front-end/assets'));
+app.set('view engine', 'ejs');
+app.set('views', __dirname + '../front-end/views');
+
+
+
 
 //iniciar bd
 //iniciar servidor
