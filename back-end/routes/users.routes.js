@@ -9,6 +9,7 @@ module.exports = (app) => {
     })
     app.get('/users', async (req,res)=>{
         try{
+            res.render('login');
             let resultado = await usersServices.listarUsuarios();
             res.json(resultado);
         }catch(err){
@@ -17,8 +18,18 @@ module.exports = (app) => {
         }
     })
 
+    app.get('/login', async (req,res)=>{
+        try{
+            res.render('login');
+        }catch(err){
+            console.log(err);
+            res.status(400).json('No se puede mostrar');
+        }
+
+    })
+
     app.post('/login', async (req,res)=>{
-        res.render('index');
+        
         let usuario = req.body
         try {
             let resultado = await usersServices.verificarUsuario(usuario)
@@ -32,6 +43,16 @@ module.exports = (app) => {
             console.log(err)
             res.status(400).json('Usuario o contrasena incorrecta')
         }
+    })
+
+    app.get('/registro', async (req,res)=>{
+        try{
+            res.render('registroUsuario');
+        }catch(err){
+            console.log(err);
+            res.status(400).json('No se puede mostrar');
+        }
+
     })
 
     app.post('/registro', async (req, res)=>{

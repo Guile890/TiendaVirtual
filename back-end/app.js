@@ -21,9 +21,9 @@ app.use(cors());
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 //configuraciones globales
-app.use(express.static(__dirname + '../front-end/assets'));
+app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
-app.set('views', __dirname + '../front-end/views');
+app.set('views', __dirname + '/views');
 
 
 
