@@ -13,11 +13,12 @@ CREATE TABLE Usuario(
 	apellidos char(80) NOT NULL,
 	email char(50) NOT NULL,
 	movil char(10) NOT NULL,
-	telefono int NULL,
+	telefono char(10) NULL,
 	ciudad char(30) NOT NULL,
 	estado char(30) NOT NULL,
 	cp int NOT NULL,
 	contrasena char(15) NOT NULL,
+	usuario char(20)NOT NULL,
 	fechaAlta timestamp NOT NULL
 PRIMARY KEY (idUsuario),
 idEstatus int FOREIGN KEY REFERENCES Estatus(idEstatus))
