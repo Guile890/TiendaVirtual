@@ -18,7 +18,7 @@ CREATE TABLE Usuario(
 	ciudad char(30) NOT NULL,
 	estado char(30) NOT NULL,
 	cp int NOT NULL,
-	bandera_admin tinyint NOT NULL,
+	bandera_admin int NOT NULL,
 	contrasena char(15) NOT NULL,
 	fechaAlta timestamp NOT NULL
 PRIMARY KEY (idUsuario),

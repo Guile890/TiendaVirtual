@@ -35,6 +35,10 @@ const Usuarios = sequelize.define('usuarios', {
         type: DataTypes.INTEGER,
         allowNull: false
     },
+    bandera_admin: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
     contrasena: {
         type: DataTypes.STRING(15),
         allowNull: false
