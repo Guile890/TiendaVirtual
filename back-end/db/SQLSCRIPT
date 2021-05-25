@@ -1,6 +1,7 @@
 CREATE DATABASE tecladolibre1
 USE tecladolibre1
 
+
 CREATE TABLE Estatus(
 idEstatus int IDENTITY(1,1) NOT NULL,
 descripcion char(10) NOT NULL
@@ -17,6 +18,7 @@ CREATE TABLE Usuario(
 	ciudad char(30) NOT NULL,
 	estado char(30) NOT NULL,
 	cp int NOT NULL,
+	bandera_admin tinyint NOT NULL,
 	contrasena char(15) NOT NULL,
 	fechaAlta timestamp NOT NULL
 PRIMARY KEY (idUsuario),
