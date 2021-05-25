@@ -1,16 +1,16 @@
-const usuario = document.getElementById("usuario");
+const email = document.getElementById("email");
 const contrasena = document.getElementById("contrasena");
 const iniciarSesion = document.getElementById("submit")
 
 class Usuarios {
-    constructor(usuario, contrasena){
-        this.usuario = usuario,
+    constructor(email, contrasena){
+        this.email = email,
         this.contrasena = contrasena,
         this.token = ""
     }
 
-    static async guardaUsuario (usuario) {
-        localStorage.setItem("dataUsuario", JSON.stringify(usuario))
+    static async guardaUsuario (email) {
+        localStorage.setItem("dataUsuario", JSON.stringify(email))
     }
 
     static async recuperaUsuario () {
@@ -39,7 +39,7 @@ iniciarSesion.addEventListener('click', async (event) => {
         alert('Usuario o contraseña incorrecta')
     } else {
         let data = await Usuarios.recuperaUsuario();
-        data.usuario = vuelta.user.usuario;
+        data.email = vuelta.user.email;
         data.nombre = vuelta.user.nombre + " " + vuelta.user.apellidos;
         data.token = vuelta.token;
         Usuarios.guardaUsuario(data);
