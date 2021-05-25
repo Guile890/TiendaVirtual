@@ -18,7 +18,6 @@ CREATE TABLE Usuario(
 	estado char(30) NOT NULL,
 	cp int NOT NULL,
 	contrasena char(15) NOT NULL,
-	usuario char(20)NOT NULL,
 	fechaAlta timestamp NOT NULL
 PRIMARY KEY (idUsuario),
 idEstatus int FOREIGN KEY REFERENCES Estatus(idEstatus))
