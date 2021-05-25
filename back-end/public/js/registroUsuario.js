@@ -1,83 +1,68 @@
-class Usuarios {
-    constructor(usuario, contrasena){
-        this.usuario = usuario,
-        this.pass = contrasena,
-        this.token = ""
+const formulario = document.getElementById("formulario");
+const nombre = document.getElementById('firstname');
+const apellidos = document.getElementById('lastname');
+const email = document.getElementById('email');
+const movil = document.getElementById('celular');
+const telefono = document.getElementById('telefono');
+const ciudad = document.getElementById('country');
+const estado = document.getElementById('state');
+const cp = document.getElementById('zip');
+const contrasena = document.getElementById('pass');
+
+
+
+/*class UsuarioNuevo {
+    constructor(nombre,apellidos,email,movil,telefono,ciudad,estado,cp,contrasena){
+        this.nombre = nombre, 
+        this.apellidos= apellidos, 
+        this.email= email , 
+        this.movil= movil, 
+        this.telefono= telefono, 
+        this.ciudad= ciudad, 
+        this.estado= estado, 
+        this.cp= cp, 
+        this.contrasena= contrasena,
+        this.usuario= email,
+        this.fechaAlta= " ", 
+        this.idEstatus= " "
+        
     }
+}*/
 
-    static async guardaUsuario (usuario) {
-        localStorage.setItem("dataUsuario", JSON.stringify(usuario))
-    }
-
-    static async recuperaUsuario () {
-        let resultado = await JSON.parse(localStorage.getItem('dataUsuario'))
-        return resultado
-    }
-}
-
-
-//Instaciar esta clase
-//let usuarioNuevo = new Usuarios ('aolguin', 'pirulo')
-//Usuarios.guardaUsuario(new Usuarios ('aolguin', 'pirulo123'))
-
-//logica de app para login
-
-
-let registro = async function (){
-    let data = await Usuarios.recuperaUsuario()
-    console.log(data)
-
-    let resultado = await fetch("http://localhost:3000/registro", { 
+formulario.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    let resultado = await fetch("http://localhost:3000/registro", { // /nuevousuarios
         method: 'post',
         headers: {
             "Accept": "application/json, text/plain, *,*",
             "Content-Type": "application/json"
         },
         body: JSON.stringify( {
-            "usuario": data.usuario,
-            "pass": data.contrasena
+            "nombre": nombre.value,
+            "apellidos": apellidos.value,
+            "email": email.value,
+            "movil": movil.value,
+            "telefono": telefono.value,
+            "ciudad": ciudad.value,
+            "estado": estado.value,
+            "cp": cp.value,
+            "contrasena": contrasena.value,
+            "usuario": email.value,
         })
     })
-    let vuelta = await resultado.json()
-    data.token = vuelta
-    return data
+    alert("Usuario registrado correctamente")
+    nuevoFormulario()
+})
+
+function nuevoFormulario(){
+    nombre.value=" ";
+    apellidos.value=" ";
+    email.value=" ";
+    movil.value=" ";
+    telefono.value=" ";
+    ciudad.value=" ";
+    estado.value=" ";
+    cp.value=" ";
+    contrasena.value=" ";
+    email.value=" ";
 }
-
-async function llamada () {
-    let resultado = await login()
-    console.log(resultado)
-    Usuarios.guardaUsuario(resultado)
-    return resultado
-}
-
-//Logica de la pagina una vez realizado el login
-
-let usuariosGet = async function (){
-    let data = await Usuarios.recuperaUsuario()
-
-    let resultado = await fetch("http://localhost:3000/usuarios" , {
-        method: 'get',
-        headers: {
-            "Accept": "application/json, text/plain, */*",
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${data.token}`
-        },
-    })
-
-    let vuelta = await resultado.json()
-    return vuelta
-}
-
-async function llamadaNueva () {
-    let resultado = await usuariosGet()
-    console.log(resultado)
-    return resultado
-}
-
-//Inicio de nuestra app
-async function iniciarApp () {
-    await llamada()
-    llamadaNueva()
-}
-
-iniciarApp()

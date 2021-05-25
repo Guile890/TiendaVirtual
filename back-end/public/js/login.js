@@ -1,7 +1,11 @@
+const usuario = document.getElementById("usuario");
+const contrasena = document.getElementById("contrasena");
+const iniciarSesion = document.getElementById("submit")
+
 class Usuarios {
     constructor(usuario, contrasena){
         this.usuario = usuario,
-        this.pass = contrasena,
+        this.contrasena = contrasena,
         this.token = ""
     }
 
@@ -15,61 +19,30 @@ class Usuarios {
     }
 }
 
-let login = async function (){
-    let data = await Usuarios.recuperaUsuario()
-    console.log(data)
-
-    let resultado = await fetch("http://localhost:3000/login", { // /nuevousuarios
+iniciarSesion.addEventListener('click', async (event) => {
+    event.preventDefault();
+    Usuarios.guardaUsuario(new Usuarios(email.value, contrasena.value));
+    let resultado = await fetch("http://localhost:3000/login", {
         method: 'post',
         headers: {
             "Accept": "application/json, text/plain, *,*",
             "Content-Type": "application/json"
         },
         body: JSON.stringify( {
-            "usuario": data.usuario,
-            "pass": data.contrasena
+            "email": email.value,
+            "contrasena": contrasena.value
         })
     })
-    let vuelta = await resultado.json()
-    data.token = vuelta
-    return data
-}
 
-async function llamada () {
-    let resultado = await login()
-    console.log(resultado)
-    Usuarios.guardaUsuario(resultado)
-    return resultado
-}
-
-//Logica de la pagina una vez realizado el login
-
-let usuariosGet = async function (){
-    let data = await Usuarios.recuperaUsuario()
-
-    let resultado = await fetch("http://localhost:3000/usuarios" , {
-        method: 'get',
-        headers: {
-            "Accept": "application/json, text/plain, */*",
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${data.token}`
-        },
-    })
-
-    let vuelta = await resultado.json()
-    return vuelta
-}
-
-async function llamadaNueva () {
-    let resultado = await usuariosGet()
-    console.log(resultado)
-    return resultado
-}
-
-//Inicio de nuestra app
-async function iniciarApp () {
-    await llamada()
-    llamadaNueva()
-}
-
-iniciarApp()
+    let vuelta = await resultado.json();
+    if(vuelta === 'Usuario o contraseña incorrecta'){
+        alert('Usuario o contraseña incorrecta')
+    } else {
+        let data = await Usuarios.recuperaUsuario();
+        data.usuario = vuelta.user.usuario;
+        data.nombre = vuelta.user.nombre + " " + vuelta.user.apellidos;
+        data.token = vuelta.token;
+        Usuarios.guardaUsuario(data);
+       location.href = 'https://teclerchallenge.000webhostapp.com/'
+    }
+})

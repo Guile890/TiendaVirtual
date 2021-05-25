@@ -34,6 +34,8 @@ async function inicioServidor(){
   try{
       await Usuarios.sync({alter:true})
       await sequelize.authenticate();
+      //await Usuarios.newUsuario({nombre:'Brandon', apellidos: 'Contreras', email: 'braru@gmail.com',movil: '4652313413', telefono: '5642156023',ciudad:'Mexico',estado:'Mexico', cp:'56460',  contrasena: '123' , usuario: 'braru@gmail.com', fechaAlta:'2022', idEstatus: 2})
+      await Usuarios.newUsuario({nombre:'Brandon', apellidos: 'Contreras', email: 'braru@gmail.com',movil: '4652313413', telefono: '5642156023',ciudad:'Mexico',estado:'Mexico', cp:'56460',  contrasena: '123' , usuario: 'braru55', fechaAlta:'2022', idEstatus: 1})
       console.log('Conexión correcta con la db');
       app.listen(process.env.PORT,function(){
           console.log(`Servidor iniciado en ${process.env.PORT}`)
