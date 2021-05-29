@@ -73,7 +73,7 @@ module.exports.existenciaDeUsuario = async (usr)=>{
 module.exports.newUsuario = async (usr)=> {
     console.log(usr)
     let resultado = await Usuarios.create({nombre: usr.nombre, apellidos: usr.apellidos, email: usr.email , 
-    movil: usr.movil, telefono: usr.telefono, ciudad: usr.ciudad, estado: usr.estado, cp: usr.cp, contrasena: usr.contrasena,
+    movil: usr.movil, telefono: usr.telefono, ciudad: usr.ciudad, estado: usr.estado, cp: usr.cp,bandera_admin:usr.bandera_admin, contrasena: usr.contrasena,
     fechaAlta: usr.fechaAlta, idEstatus: usr.idEstatus  })
 
     return resultado
