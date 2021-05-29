@@ -1,0 +1,68 @@
+<%- include("cabeceras/cabecera.listProducto.ejs") %>
+<body>
+
+  <div class="text-center">
+    <img class="mb-4" src="/back-end/public/icons/admin.png" alt="" width="96" height="96">
+    <h1 class="h3 mb-3 fw-normal">Administrador de productos</h1>
+  </div>
+ 
+  <div eblclass="container">
+    <a href="/createProducto" class="btn btn-outline-secondary mt-4"><i class='bx bxs-plus-circle bx-md'></i></a>
+    <table class="table">
+      <thead>
+        <tr class="bg-secondary text-white">
+          <th scope="col">#</th>
+          <th scope="col">Descripción</th>
+          <th scope="col">Precio</th>
+          <th scope="col">Imagen</th>
+          <th scope="col">Existencia</th>
+          <th scope="col">Categoria</th>
+          <th scope="col">Acciones</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <% results.forEach((user)=>{ %>
+          <tr>
+            <td>
+              <%= user.id %>
+            </td>
+            <td>
+              <%= user.usuario %>
+            </td>
+            <td>
+              <% if(user.tipo_usuario==1){ %>
+                Administrador
+                <% } else{ %>
+                  Usuario
+                  <% } %>
+            </td>
+            <td>
+
+            </td>
+            <td>
+              
+            </td>
+            <td>
+              
+            </td>
+            <td>
+              <a href="/edit/<%= user.id%>" class="btn btn-outline-secondary"><i class='bx bxs-edit'></i></a>
+              <a onclick="eliminar('<%= user.id %>')" class="btn btn-outline-danger"><i
+                  class='bx bxs-trash-alt'></i></a>
+            </td>
+          </tr>
+          <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+  </main>
+
+  <script src="/back-end/public/js/listproducto.js"></script>
+
+
+
+</body>
+
+</html>
