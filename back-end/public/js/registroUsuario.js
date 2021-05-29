@@ -8,6 +8,7 @@ const ciudad = document.getElementById('country');
 const estado = document.getElementById('state');
 const cp = document.getElementById('zip');
 const contrasena = document.getElementById('pass');
+const contrasena2 = document.getElementById('pass2');
 
 
 
@@ -47,7 +48,7 @@ formulario.addEventListener('submit', async (event) => {
             "estado": estado.value,
             "cp": cp.value,
             "contrasena": contrasena.value,
-            "usuario": email.value,
+            
         })
     })
     alert("Usuario registrado correctamente")

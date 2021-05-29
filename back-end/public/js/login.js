@@ -6,11 +6,13 @@ class Usuarios {
     constructor(email, contrasena){
         this.email = email,
         this.contrasena = contrasena,
+        this.nombre = "",
+        this.permiso = "",
         this.token = ""
     }
 
-    static async guardaUsuario (email) {
-        localStorage.setItem("dataUsuario", JSON.stringify(email))
+    static async guardaUsuario (usuario) {
+        localStorage.setItem("dataUsuario", JSON.stringify(usuario))
     }
 
     static async recuperaUsuario () {
@@ -20,6 +22,8 @@ class Usuarios {
 }
 
 iniciarSesion.addEventListener('click', async (event) => {
+    console.log(email.value);
+    console.log(contrasena.value);
     event.preventDefault();
     Usuarios.guardaUsuario(new Usuarios(email.value, contrasena.value));
     let resultado = await fetch("http://localhost:3000/login", {
@@ -35,14 +39,19 @@ iniciarSesion.addEventListener('click', async (event) => {
     })
 
     let vuelta = await resultado.json();
-    if(vuelta === 'Usuario o contraseña incorrecta'){
+    if(vuelta === 'Usuario o contraseña incorrecta' || vuelta === 'No existe el usuario' ){
         alert('Usuario o contraseña incorrecta')
     } else {
         let data = await Usuarios.recuperaUsuario();
         data.email = vuelta.user.email;
+        data.permiso = vuelta.user.bandera_admin;
         data.nombre = vuelta.user.nombre + " " + vuelta.user.apellidos;
         data.token = vuelta.token;
         Usuarios.guardaUsuario(data);
+        if(data.permiso === 1){
+            location.href = '/admin'
+        } else {
        location.href = 'https://teclerchallenge.000webhostapp.com/'
+        }
     }
 })

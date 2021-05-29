@@ -34,14 +34,24 @@ module.exports = (app) => {
         try {
             let resultado = await usersServices.verificarUsuario(usuario)
             if (resultado){
+                let usuarioInfo = await usersServices.datosUsuario(usuario)
                 let tokenResult = await usersServices.generaToken(usuario)
-                res.json(tokenResult)
+                res.json({token: tokenResult, user: usuarioInfo})
             }else {
                 throw new Error (err)
             }
         }catch (err){
             console.log(err)
             res.status(400).json('Usuario o contrasena incorrecta')
+        }
+    })
+    
+    app.get('/admin', async (req,res)=>{
+        try{
+            res.render('admin');
+        }catch (err){
+            console.log(err)
+            res.estatus(400).json('No se puede mostrar')
         }
     })
 

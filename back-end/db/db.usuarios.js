@@ -70,6 +70,15 @@ module.exports.existenciaDeUsuario = async (usr)=>{
     }
 }
 
+module.exports.recuperarInfoUser = async (usr) => {
+    let resultado = await Usuarios.findAll({where: {email:usr.email, contrasena: usr.contrasena}})
+    if (resultado === null){
+      return false
+    }else {
+      return resultado[0]
+    }
+}
+
 module.exports.newUsuario = async (usr)=> {
     console.log(usr)
     let resultado = await Usuarios.create({nombre: usr.nombre, apellidos: usr.apellidos, email: usr.email , 

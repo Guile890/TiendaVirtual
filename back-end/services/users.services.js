@@ -1,6 +1,7 @@
 //importando modulos
-const sequelize = require('../db/conexion')
-const dbUsuarios = require ('../db/db.usuarios')
+const sequelize = require('../db/conexion');
+const dbUsuarios = require ('../db/db.usuarios');
+const jwt = require('jsonwebtoken');
 
 module.exports.listarUsuarios = async () =>{
     try{
@@ -10,13 +11,12 @@ module.exports.listarUsuarios = async () =>{
         throw new Error ('Ocurrio un problema en la consulta con la db ')
     }
 }
-
 module.exports.verificarUsuario = async (usr)=>{
     let usrchk = usr
     try {
         let resultado =  await dbUsuarios.existenciaDeUsuario(usrchk)
 
-        if (!resultado) {
+        if (resultado) {
             return resultado
         }else {
             throw new Error ('No existe el usuario')
@@ -27,10 +27,27 @@ module.exports.verificarUsuario = async (usr)=>{
     }
 }
 
+module.exports.datosUsuario = async (usr) => {
+    let usrchk = usr
+    try {
+        let resultado =  await dbUsuarios.recuperarInfoUser(usrchk)
+        if (resultado) {
+            return resultado
+        }else {
+            throw new Error ('No hay datos de Usuario')
+        }
+    }catch (err){
+        console.log(err)
+        throw new Error (' no semuy bien que paso')
+    }
+}
+
 module.exports.generaToken = async (data)=>{
     try {
         let resultado = jwt.sign({
-            data}, process.env.SECRET_KEY
+            exp: Math.floor(Date.now() / 1000) + (60 * 60),
+            data
+            }, process.env.SECRET_KEY
         )
         return resultado
     }catch (err){
