@@ -1,5 +1,5 @@
 const { DataTypes, Model } = require('sequelize')
-const sequelize = require('./conexion')
+const sequelize = require('../../db/conexion')
 
 //Definicion del modelo de usuario
 const Producto = sequelize.define('Producto', {
@@ -57,4 +57,38 @@ module.exports.deleteProducto = async (id) => {
         throw console.log(error)
     }
 }
+
+module.exports.obtenerProducto  = async (data) =>{
+    let id = [
+        data
+    ]
+    try {
+        let resultado = await sequelize.query(`SELECT * FROM productos WHERE id = ? `,
+        {replacements : id, type : sequelize.QueryTypes.SELECT})
+        return resultado;
+    } catch (error) {
+        throw new Error ('Ocurrio un error')
+    }
+}
+module.exports.updateProducto = async (data) =>{
+    let productoUpdate = [
+        data.descripcion,
+        data.precio,
+        data.imagen,
+        data.existencia,
+        data.categoria,
+        data.id
+    ]
+    console.log('valor a updating',productoUpdate)
+    try {
+        let resultado = await sequelize.query(`UPDATE productos SET descripcion= ?, precio= ?, imagen= ?, existencia= ?, idCategoria= ? WHERE id= ? `,
+        {replacements : productoUpdate, type : sequelize.QueryTypes.SELECT})
+        return resultado;
+    } catch (error) {
+        throw new Error ('Un campo esta incorrecto, intente de nuevo')
+
+    }
+}
+
+
 

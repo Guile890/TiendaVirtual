@@ -7,11 +7,12 @@ const userRoutes = require('./routes/users.routes')
 const midd = require('./midd/midd');
 const cors = require('cors');
 const Usuarios = require('./db/db.usuarios')
+const Producto = require('./db/db.productos')
 
 const serviciosMercadoLibre = require("./services/services");
 const swaggerUi = require('swagger-ui-express')
 const swaggerFile = require('./swagger_output.json')
-const productosRoutes = require('./routes/productos.routes')
+const vistaProductos = require('./mvc/vista/vista.producto')
 
 
 //middleware globales
@@ -33,9 +34,10 @@ app.set('views', __dirname + '/views');
 async function inicioServidor(){
   try{
       await Usuarios.sync({alter:true})
+      await Producto.sync({alert:true})
       await sequelize.authenticate();
       //await Usuarios.newUsuario({nombre:'Brandon', apellidos: 'Contreras', email: 'braru@gmail.com',movil: '4652313413', telefono: '5642156023',ciudad:'Mexico',estado:'Mexico', cp:'56460',  contrasena: '123' , usuario: 'braru@gmail.com', fechaAlta:'2022', idEstatus: 2})
-      await Usuarios.newUsuario({nombre:'Brandon', apellidos: 'Contreras', email: 'braru@gmail.com',movil: '4652313413', telefono: '5642156023',ciudad:'Mexico',estado:'Mexico', cp:'56460',  contrasena: '123' , usuario: 'braru55', fechaAlta:'2022', idEstatus: 1})
+      //await Usuarios.newUsuario({nombre:'Brandon', apellidos: 'Contreras', email: 'braru@gmail.com',movil: '4652313413', telefono: '5642156023',ciudad:'Mexico',estado:'Mexico', cp:'56460',  contrasena: '123' , usuario: 'braru55', fechaAlta:'2022', idEstatus: 1})
       console.log('Conexión correcta con la db');
       app.listen(process.env.PORT,function(){
           console.log(`Servidor iniciado en ${process.env.PORT}`)
@@ -49,7 +51,7 @@ inicioServidor();
 
 //Routes
 userRoutes(app);
-productosRoutes(app);
+vistaProductos(app);
 
 
 
