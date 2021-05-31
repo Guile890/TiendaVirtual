@@ -38,7 +38,7 @@ async function inicioServidor(){
       await sequelize.authenticate();
       //await Usuarios.newUsuario({nombre:'Brandon', apellidos: 'Contreras', email: 'braru@gmail.com',movil: '4652313413', telefono: '5642156023',ciudad:'Mexico',estado:'Mexico', cp:'56460',  contrasena: '123' , usuario: 'braru@gmail.com', fechaAlta:'2022', idEstatus: 2})
 
-      await Usuarios.newUsuario({nombre:'Ruben', apellidos: 'Contreras', email: 'admin@gmail.com',movil: '4652313413', telefono: '5642156023',ciudad:'Mexico',estado:'Mexico', cp:'56460',bandera_admin:'1',  contrasena: '123', fechaAlta:'2022', idEstatus: 1})
+    //   await Usuarios.newUsuario({nombre:'Ruben', apellidos: 'Contreras', email: 'admin@gmail.com',movil: '4652313413', telefono: '5642156023',ciudad:'Mexico',estado:'Mexico', cp:'56460',bandera_admin:'1',  contrasena: '123', fechaAlta:'2022', idEstatus: 1})
       //await Usuarios.newUsuario({nombre:'Brandon', apellidos: 'Contreras', email: 'braru@gmail.com',movil: '4652313413', telefono: '5642156023',ciudad:'Mexico',estado:'Mexico', cp:'56460',  contrasena: '123' , usuario: 'braru55', fechaAlta:'2022', idEstatus: 1})
 
       console.log('Conexión correcta con la db');
@@ -56,28 +56,5 @@ inicioServidor();
 userRoutes(app);
 vistaProductos(app);
 
-
-
-// //middleware errores globales
-// app.use((err, req, res, next) => {
-//   console.log(err);
-//   if (!err) {
-//     return next();
-//   }
-
-//   return res
-//     .status(500)
-//     .json("Se produjo un error inesperado, intente nuevamente");
-// });
-
-// //end point inicial
-// app.get("/",cors(midd.corsOptions), async function (req, res) {
-//   let respuesta = {
-//     codigo: 200,
-//     error: false,
-//     message: "Punto de inicio de la APP",
-//   };
-//   res.send(respuesta);
-// });
 
 
