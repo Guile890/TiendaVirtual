@@ -78,14 +78,14 @@ module.exports.modificarUsuario = async (usuarioMod)=>{
         let usuarioResultado = await dbUsuarios.modUsuario(usuarioMod);   
         return usuarioResultado
     }catch (err){
-        throw err
+        throw new Error ('No se pudo actualizar el usuario seleccionado')
     }
 }
 
 module.exports.eliminarUsuario = async (data) => {
     try {
         let resultado = await dbUsuarios.eliminarUsuario(data) 
-        return resultado;
+        return true;
     }catch (err){
         throw new Error ('No se pudo eliminar el usuario seleccionado')
     }

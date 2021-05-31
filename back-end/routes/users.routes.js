@@ -90,8 +90,10 @@ module.exports = (app) => {
         let data = req.params.id;
         try {
             let resultado = await usersServices.buscarUsuario(data)
-            res.render('adminEditUser.ejs', {result:resultado.dataValues })
-            res.send(200,resultado[id]);
+            res.render('adminEditUser', {
+                result:resultado.dataValues 
+            })
+            // res.send(200,resultado[id]);
         }catch (err){
             res.status(400).json('Error al dirigirse a la pagina EDITAR')
         }
@@ -101,7 +103,7 @@ module.exports = (app) => {
         let usuMod = req.body
         try {
             let resultado = await usersServices.modificarUsuario(usuMod)
-            
+            res.redirect('/usuarios')
         }catch (err){
             console.log(err)
             res.status(400).json('Error al modificar usuario')

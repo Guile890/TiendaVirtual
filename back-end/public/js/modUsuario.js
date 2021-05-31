@@ -27,7 +27,7 @@ registro.addEventListener('click', async (event) => {
             //'Authorization': `Bearer ${data.token}`
         },
         body: JSON.stringify( {
-            "id": parseInt(id.textContent),
+            "id": id.value,
             "nombre": nombre.value,
             "apellidos": apellidos.value,
             "email": email.value,
@@ -44,19 +44,22 @@ registro.addEventListener('click', async (event) => {
         })
         
     })
-    
+    if(resultado.ok)    {
+        swal({
+            title: "Se actualizo la informacion del usuario correctamente",
+            icon: "success",
+          });
+          setTimeout(() => {
+            location.href = '/usuarios'
+        }, 3000);
+    }
+    console.log('resultadooo',resultado)
    // if(resultado.status == 400){
     //    swal({
      //       title: "No tienes permiso para modificar",
        //     icon: "error",
        //   });
   //  } else {
-    swal({
-        title: "Se actualizo la informacion del usuario correctamente",
-        icon: "success",
-      });
-      setTimeout(() => {
-        location.href = '/usuarios'
-    }, 3000);
+   
    // }
 })

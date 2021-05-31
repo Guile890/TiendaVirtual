@@ -50,7 +50,7 @@ registro.addEventListener('click', async (event) => {
        //   });
   //  } else {
     swal({
-        title: "Se actualizo la informacion del usuario correctamente",
+        title: "Se agregó la informacion del usuario correctamente",
         icon: "success",
       });
       setTimeout(() => {

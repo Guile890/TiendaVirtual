@@ -96,23 +96,23 @@ module.exports.newUsuario = async (usr)=> {
 
 module.exports.modUsuario = async (usr) => {
   try {
-    await Usuarios.update({nombre: usr.nombre, apellidos: usr.apellidos, email: usr.email , 
+    let resultado = await Usuarios.update({nombre: usr.nombre, apellidos: usr.apellidos, email: usr.email , 
       movil: usr.movil, telefono: usr.telefono, ciudad: usr.ciudad, estado: usr.estado, cp: usr.cp,bandera_admin:usr.bandera_admin, contrasena: usr.contrasena,
-      fechaAlta: usr.fechaAlta, idEstatus: usr.idEstatus }, {where: { email : usr.email}})
-    return true;
+      fechaAlta: usr.fechaAlta, idEstatus: usr.idEstatus }, {where: { id : usr.id}})
+    return resultado;
 }catch (err){
     throw new Error ('No se pudo actualizar el producto seleccionado')
 }
   }
 
-module.exports.eliminarUsuario = async (email) => {
-    let usuarioEli = await Usuarios.findOne({where: {email: email}});
-    if(usuarioEli != null){
-      usuarioEli.destroy();
-      return 'Usuario eliminado'
-    }
-    else{
-      throw new Error('No existe usuario')
+module.exports.eliminarUsuario = async (id) => {
+    try{
+        let resultado = await Usuarios.destroy({
+            where: { id: id }
+        })
+        return true
+    }catch(error){
+        throw console.log(error)
     }
   } 
 
@@ -120,3 +120,14 @@ module.exports.eliminarUsuario = async (email) => {
     let resultado = await sequelize.query('SELECT * FROM usuarios')
     return resultado[0]
 } 
+
+module.exports.buscarUsuarios = async (data) => {
+    try{
+      let resultado = await Usuarios.findAll({
+        where: { id : data }
+      })
+      return resultado[0]
+    }catch (err) {
+      throw new Error (err)
+    }
+  }
