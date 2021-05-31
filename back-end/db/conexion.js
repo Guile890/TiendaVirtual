@@ -2,7 +2,7 @@
 const Sequelize = require('sequelize')
 
 
-const sequelize = new Sequelize('tecladolibre2', null, null, {
+const sequelize = new Sequelize('tecladolibre', null, null, {
     dialect: 'mssql',
     server: process.env.DB_HOST,
     port: process.env.DB_PORT,

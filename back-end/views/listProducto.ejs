@@ -2,13 +2,18 @@
 <body>
 
   <div class="text-center">
-    <img class="mb-4" src="/back-end/public/icons/admin.png" alt="" width="96" height="96">
+    <img class="mb-4" src="/icons/admin.png" alt="" width="96" height="96">
     <h1 class="h3 mb-3 fw-normal">Administrador de productos</h1>
   </div>
  
-  <div eblclass="container">
+  <div eblclass="container" style="padding-left: 20px;">
     <a href="/createProducto" class="btn btn-outline-secondary mt-4"><i class='bx bxs-plus-circle bx-md'></i></a>
-    <table class="table">
+    <div class="row">
+      <div class="table-responsive">
+        
+      </div>
+    </div>
+    <table id="pager" class="wp-list-table widefat striped posts" style="width: 95%; height: 75%;" >
       <thead>
         <tr class="bg-secondary text-white">
           <th scope="col">#</th>
@@ -22,44 +27,49 @@
         </tr>
       </thead>
       <tbody>
-        <% results.forEach((user)=>{ %>
+        <% results.forEach((producto)=>{ %>
           <tr>
             <td>
-              <%= user.id %>
+              <%= producto.id %>
             </td>
             <td>
-              <%= user.usuario %>
+              <%= producto.descripcion %>
             </td>
             <td>
-              <% if(user.tipo_usuario==1){ %>
+              <%= producto.precio %>
+            </td>
+            <td>
+              <%= producto.imagen %>
+            </td>
+            <td>
+              <%= producto.existencia %>
+            </td>
+            <!-- <td>
+              <% if(producto.tipo_usuario==1){ %>
                 Administrador
                 <% } else{ %>
                   Usuario
                   <% } %>
+            </td> -->
+            <td>
+              <%= producto.idCategoria %>
             </td>
             <td>
-
-            </td>
-            <td>
-              
-            </td>
-            <td>
-              
-            </td>
-            <td>
-              <a href="/edit/<%= user.id%>" class="btn btn-outline-secondary"><i class='bx bxs-edit'></i></a>
-              <a onclick="eliminar('<%= user.id %>')" class="btn btn-outline-danger"><i
+              <a href="/updateProducto/<%= producto.id%>" class="btn btn-outline-secondary"><i class='bx bxs-edit'></i></a>
+              <a onclick="eliminar('<%= producto.id %>')" class="btn btn-outline-danger"><i
                   class='bx bxs-trash-alt'></i></a>
             </td>
           </tr>
           <% }) %>
       </tbody>
     </table>
+    <div id="pageNavPosition" class="pager-nav"></div>
   </div>
 
   </main>
 
-  <script src="/back-end/public/js/listproducto.js"></script>
+  <script src="js/listproducto.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"> </script> 
 
 
 

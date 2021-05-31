@@ -1,0 +1,107 @@
+<%- include("cabeceras/cabecera.createProducto.ejs") %>
+
+    <body class="bg-light">
+
+        <div class="container">
+            <main>
+
+
+                <div class="row g-8 ">
+
+                    <div class="col-md-12 col-lg-12">
+                        <img class="d-block mx-auto mb-4" src="/icons/itemicon.png" alt="" width="96" height="99">
+                        <h4 class="mb-3 text-center">Editar Producto</h4>
+                        <hr class="my-4">
+                        <form id="nuevoForm" method="POST" class="row g-3 needs-validation" novalidate>
+                            <div class="col-sm-2" hidden>
+                                <label for="GET-id" class="form-label">id</label>
+                                <input type="text" class="form-control" id="GET-ids" placeholder=""
+                                    value="<%= data.id%>" required>
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="GET-descripcion" class="form-label">Descripción</label>
+                                <input type="text" class="form-control" id="GET-descripciones" placeholder=""
+                                    value="<%= data.descripcion%>" required>
+                                <div class="invalid-feedback">
+                                    Descripción es un campo obligatorio.
+                                </div>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <label for="GET-precio" class="form-label">Precio</label>
+                                <input type="text" class="form-control" id="GET-precios" placeholder=""
+                                    value="<%= data.precio%>" required>
+                                <div class="invalid-feedback">
+                                    Precio es un campo obligatorio
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <label for="GET-existencia" class="form-label">Existencia</label>
+                                <input type="text" class="form-control" id="GET-existencias" placeholder=""
+                                    value="<%= data.existencia%>" required>
+                                <div class="invalid-feedback">
+                                    Existencia es un campo obligatorio.
+                                </div>
+                            </div>
+
+                            <div class="col-sm-2">
+
+                            </div>
+                            <div class="col-sm-2">
+
+                            </div>
+                            <div class="col-4">
+                                <label for="GET-imagen" class="form-label">Imagen <span
+                                        class="text-muted"></span></label>
+                                <input type="text" class="form-control" id="GET-imagenes" value="<%= data.imagen%>"
+                                    required>
+                                <div class="invalid-feedback">
+                                    Imagen es un campo obligatorio
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <label for="GET-categoria" class="form-label">Categoria <span
+                                        class="text-muted"></span></label>
+                                <input type="text" class="form-control" id="GET-categorias"
+                                    value="<%= data.idCategoria%>" required>
+                                <div class="invalid-feedback">
+                                    Categoria es un campo obligatorio
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+
+                            </div>
+
+
+                            <hr class="my-4">
+                            <div style="text-align: center;">
+                                <a href="/getProductos" id="submit" class="btn btn-secondary btn-lg " tabindex="-1"
+                                    role="button" aria-disabled="true">Ver Productos</a>
+                                <button type="submit" id="editar" class="btn btn-primary btn-lg">Editar</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </main>
+
+            <footer class="my-5 pt-5 text-muted text-center text-small">
+                <p class="mb-1">&copy; 2021 Tienda Virtual Tecla</p>
+                <ul class="list-inline">
+                    <li class="list-inline-item"><a href="#">Privacidad</a></li>
+                    <li class="list-inline-item"><a href="#">Terminos y Condiciones</a></li>
+                    <li class="list-inline-item"><a href="#">Soporte</a></li>
+                </ul>
+            </footer>
+        </div>
+
+
+        <script src="/js/updateProducto.js"></script>
+        <script src="/js/bootstrap.bundle.min.js"></script>
+        <script src="/js/validaciones.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"> </script>
+
+        <!-- <script src="form-validation.js"></script> -->
+    </body>
+
+    </html>
