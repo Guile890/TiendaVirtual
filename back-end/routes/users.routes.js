@@ -65,6 +65,16 @@ module.exports = (app) => {
 
     })
 
+    app.get('/admin/registro', async (req,res)=>{
+        try{
+            res.render('adminAddUser');
+        }catch(err){
+            console.log(err);
+            res.status(400).json('No se puede mostrar');
+        }
+
+    })
+
     app.post('/registro', async (req, res)=>{
         let usuarioNuevo = req.body
         try {
@@ -98,14 +108,16 @@ module.exports = (app) => {
         }
     })
     
-    app.delete('/eliminar', async (req, res)=>{
-        let usuEliminar = req.body.email;
+
+    app.get('/delete/:id', async (req,res)=>{
+        let data = req.params.id;
         try {
-            let resultado = await usersServices.eliminarUsuario(usuEliminar)
-            res.status(200).json('usuario eliminado correctamente')
+            let resultado = await usersServices.eliminarUsuario(data)
+            if(resultado){
+                res.redirect('/usuarios');
+            }      
         }catch (err){
-            console.log(err)
-            res.status(400).json('algo raro paso')
+            res.status(400).json('No se puedo eliminar el usuario')
         }
     })
 

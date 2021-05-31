@@ -2,7 +2,12 @@ const { DataTypes, Model } = require('sequelize')
 const sequelize = require('./conexion')
 
 //Definicion del modelo de usuario
-const Usuarios = sequelize.define('usuarios', {
+const Usuarios = sequelize.define('Usuario', {
+    id : {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+      },
     nombre: {
         type: DataTypes.STRING(40),
         allowNull: false,
@@ -90,19 +95,14 @@ module.exports.newUsuario = async (usr)=> {
 }
 
 module.exports.modUsuario = async (usr) => {
-    let usuarioMod = await Usuarios.findOne({where: {email: usr.email}});
-    if(usuarioMod != null){
-      usuarioMod.nombres = usr.nombres;
-      usuarioMod.apellidos = usr.apellidos;
-      usuarioMod.mail= usr.mail;
-      usuarioMod.usuario = usr.usuario;
-      usuarioMod.pass = usr.pass
-      usuarioMod.save();
-      return 'Usuario modificado'
-    }
-    else{
-      throw new Error('No existe usuario')
-    }
+  try {
+    await Usuarios.update({nombre: usr.nombre, apellidos: usr.apellidos, email: usr.email , 
+      movil: usr.movil, telefono: usr.telefono, ciudad: usr.ciudad, estado: usr.estado, cp: usr.cp,bandera_admin:usr.bandera_admin, contrasena: usr.contrasena,
+      fechaAlta: usr.fechaAlta, idEstatus: usr.idEstatus }, {where: { email : usr.email}})
+    return true;
+}catch (err){
+    throw new Error ('No se pudo actualizar el producto seleccionado')
+}
   }
 
 module.exports.eliminarUsuario = async (email) => {
@@ -116,18 +116,7 @@ module.exports.eliminarUsuario = async (email) => {
     }
   } 
 
-  module.exports.listar = async () => {
+  module.exports.listar = async ()=>{
     let resultado = await sequelize.query('SELECT * FROM usuarios')
     return resultado[0]
-  }
-
-  module.exports.buscarUsuarios = async (data) => {
-    try{
-      let resultado = await Usuarios.findAll({
-        where: { id : data }
-      })
-      return resultado[0]
-    }catch (err) {
-      throw new Error (err)
-    }
-  }
+} 

@@ -81,14 +81,16 @@ module.exports.modificarUsuario = async (usuarioMod)=>{
         throw err
     }
 }
-module.exports.eliminarUsuario = async (email)=>{
+
+module.exports.eliminarUsuario = async (data) => {
     try {
-        let usuarioResultado = await dbUsuarios.eliminarUsuario(email);   
-        return usuarioResultado     
+        let resultado = await dbUsuarios.eliminarUsuario(data) 
+        return resultado;
     }catch (err){
-        throw err
+        throw new Error ('No se pudo eliminar el usuario seleccionado')
     }
-}
+};
+
 module.exports.buscarUsuario = async (data)=>{
     try {
         let resultado = await dbUsuarios.buscarUsuarios(data)
