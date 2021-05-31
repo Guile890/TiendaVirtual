@@ -1,6 +1,6 @@
-CREATE DATABASE tecladolibre1
+CREATE DATABASE tecladolibre
 
-USE tecladolibre1
+USE tecladolibre
 
 
 CREATE TABLE Estatus(
