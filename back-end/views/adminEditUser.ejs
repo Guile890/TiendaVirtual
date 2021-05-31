@@ -30,7 +30,7 @@
                     <label for="firstName" class="form-label">Tipo de Usuario</label>
                       
                       <select value="<%= result.admin_bandera %>" id="admin_bandera" name="tipo_usuario"
-                        class="form-select is-valid" tabindex="6" required>
+                        class="form-select" tabindex="6" required>
                         <option <%=result.admin_bandera=='1' ? "selected" : '' %> value="1">Administrador</option>
                         <option <%=result.admin_bandera=='2' ? "selected" : '' %> value="2">Usuario</option>
                       </select>
@@ -180,10 +180,10 @@
 
 
       <%- include("cabeceras/cabecera.footer.ejs") %>
-        <script src="js/modUser.js"></script>
+        
         <script src="js/bootstrap.bundle.min.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"> </script>
-
+        <script src="../js/modUsuario.js"></script>
 
         <!-- <script src="form-validation.js"></script> -->
   </body>

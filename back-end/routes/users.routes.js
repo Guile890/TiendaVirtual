@@ -77,7 +77,7 @@ module.exports = (app) => {
 
     })
 
-    app.post('/modificar',middJsonAuth.verificacionUsuario, async (req, res)=>{
+    app.post('/modificar', async (req, res)=>{
         let usuMod = req.body
         try {
             let resultado = await usersServices.modificarUsuario(usuMod)

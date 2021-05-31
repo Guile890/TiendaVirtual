@@ -10,7 +10,7 @@ const cp = document.getElementById('zip');
 const contrasena = document.getElementById('pass');
 const contrasena2 = document.getElementById('pass2');
 const id = document.getElementById('idUser');
-const bandera_admin = getElementById('admin_bandera');
+const bandera_admin = document.getElementById('admin_bandera');
 
 registro.addEventListener('click', async (event) => {
     event.preventDefault();
