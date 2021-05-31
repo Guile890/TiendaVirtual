@@ -28,7 +28,7 @@ module.exports = (app) => {
 
     })
 
-    app.post('/login', async (req,res)=>{
+    app.post('/login',middJsonAuth.chkLogin, async (req,res)=>{
         
         let usuario = req.body
         try {
