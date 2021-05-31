@@ -1,6 +1,7 @@
 <%- include("cabeceras/cabecera") %>
-<body class="bg-light">
-    
+
+  <body class="bg-light">
+
     <div class="container">
       <main>
         <div class="py-5 text-center">
@@ -8,16 +9,16 @@
           <h2>Registro de usuarios</h2>
           <p class="lead">Registrate en nuestra tienda para comprar.</p>
         </div>
-    
+
         <div class="row g-8 ">
-          
+
           <div class="col-md-12 col-lg-12">
             <h4 class="mb-3 text-center">Información de usuario</h4>
             <form id="formulario" class="needs-validation" novalidate>
               <div class="row g-3">
-                  <div class="col-sm-2">
-    
-                  </div>
+                <div class="col-sm-2">
+
+                </div>
                 <div class="col-sm-4">
                   <label for="firstName" class="form-label">Nombre (s)</label>
                   <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
@@ -25,7 +26,7 @@
                     Nombre (s) es un campo obligatorio.
                   </div>
                 </div>
-    
+
                 <div class="col-sm-4">
                   <label for="lastName" class="form-label">Apellidos</label>
                   <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
@@ -34,10 +35,10 @@
                   </div>
                 </div>
                 <div class="col-sm-2">
-    
+
                 </div>
                 <div class="col-sm-2">
-    
+
                 </div>
                 <div class="col-8">
                   <label for="email" class="form-label">Email <span class="text-muted"></span></label>
@@ -47,30 +48,30 @@
                   </div>
                 </div>
                 <div class="col-sm-2">
-    
+
                 </div>
                 <div class="col-sm-2">
-    
+
                 </div>
                 <div class="col-4">
-                  <label for="address" class="form-label">Contrasena <span class="text-muted"></span></label>
+                  <label for="address" class="form-label">Contraseña <span class="text-muted"></span></label>
                   <input type="password" class="form-control" id="pass" required>
                   <div class="invalid-feedback">
                     Por favor ingresar un télefono de contacto.
                   </div>
                 </div>
                 <div class="col-4">
-                  <label for="address" class="form-label">Confirmar Contrasena <span class="text-muted"></span></label>
+                  <label for="address" class="form-label">Confirmar Contraseña <span class="text-muted"></span></label>
                   <input type="password" class="form-control" id="pass2" required>
                   <div class="invalid-feedback">
                     Por favor ingresar un télefono de contacto.
                   </div>
                 </div>
                 <div class="col-sm-2">
-    
+
                 </div>
                 <div class="col-sm-2">
-    
+
                 </div>
                 <div class="col-4">
                   <label for="address" class="form-label">Télefono <span class="text-muted">(Opcional)</span></label>
@@ -79,7 +80,7 @@
                     Por favor ingresar un télefono de contacto.
                   </div>
                 </div>
-    
+
                 <div class="col-4">
                   <label for="celular" class="form-label">Celular </label>
                   <input type="text" class="form-control" id="celular" placeholder="55 XX XX XX XX" required>
@@ -88,12 +89,12 @@
                   </div>
                 </div>
                 <div class="col-sm-2">
-    
+
                 </div>
                 <div class="col-sm-2">
-    
+
                 </div>
-    
+
                 <div class="col-md-3">
                   <label for="country" class="form-label">Ciudad</label>
                   <select class="form-select" id="country" required>
@@ -104,7 +105,7 @@
                     Seleccione una ciudad válida.
                   </div>
                 </div>
-    
+
                 <div class="col-md-3">
                   <label for="state" class="form-label">Estado</label>
                   <select class="form-select" id="state" required>
@@ -115,7 +116,7 @@
                     Seleccione un estado válido.
                   </div>
                 </div>
-    
+
                 <div class="col-md-2">
                   <label for="zip" class="form-label">C.P</label>
                   <input type="text" class="form-control" id="zip" placeholder="" required>
@@ -124,21 +125,23 @@
                   </div>
                 </div>
                 <div class="col-sm-2">
-    
+
                 </div>
               </div>
-    
+
               <hr class="my-4">
               <div style="text-align: center;">
-                <a href="" id="submit" class="btn btn-secondary btn-lg " tabindex="-1" role="button" aria-disabled="true">Registrarse</a>
-                <a href="/login" class="btn btn-primary btn-lg" tabindex="-1" role="button" aria-disabled="true">Iniciar sesión</a>
+                <a href="" id="submit" class="btn btn-secondary btn-lg " tabindex="-1" role="button"
+                  aria-disabled="true">Registrarse</a>
+                <a href="/login" class="btn btn-primary btn-lg" tabindex="-1" role="button" aria-disabled="true">Iniciar
+                  sesión</a>
               </div>
-              
+
             </form>
           </div>
         </div>
       </main>
-    
+
       <footer class="my-5 pt-5 text-muted text-center text-small">
         <p class="mb-1">&copy; 2021 Tienda Virtual Tecla</p>
         <ul class="list-inline">
@@ -148,12 +151,13 @@
         </ul>
       </footer>
     </div>
-    
-    
-        
-        <script src="/js/bootstrap.bundle.min.js"></script>
-        <script src="/js/registroUsuario.js"></script>
-    
-          <!-- <script src="form-validation.js"></script> -->
-      </body>
-    </html>
+
+
+    <script src="js/registroUsuario.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+
+    <!-- <script src="form-validation.js"></script> -->
+  </body>
+
+  </html>

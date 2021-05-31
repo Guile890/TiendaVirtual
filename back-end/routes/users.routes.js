@@ -45,7 +45,7 @@ module.exports = (app) => {
             res.status(400).json('Usuario o contrasena incorrecta')
         }
     })
-    
+
     app.get('/admin', async (req,res)=>{
         try{
             res.render('admin');
@@ -68,12 +68,45 @@ module.exports = (app) => {
     app.post('/registro', async (req, res)=>{
         let usuarioNuevo = req.body
         try {
-            let resultado = await usuarioServicios.crearUsuario(usuarioNuevo)
+            let resultado = await usersServices.crearUsuario(usuarioNuevo)
             res.status(200).json('usuario creado correctamente')
         }catch (err){
             console.log(err)
             res.status(400).json('algo raro paso')
         }
 
+    })
+
+    app.put('/modificar', async (req, res)=>{
+        let usuMod = req.body
+        try {
+            let resultado = await usersServices.modificarUsuario(usuMod)
+            res.status(200).json('usuario modificado correctamente')
+        }catch (err){
+            console.log(err)
+            res.status(400).json('algo raro paso')
+        }
+    })
+    
+    app.delete('/eliminar', async (req, res)=>{
+        let usuEliminar = req.body.email;
+        try {
+            let resultado = await usersServices.eliminarUsuario(usuEliminar)
+            res.status(200).json('usuario eliminado correctamente')
+        }catch (err){
+            console.log(err)
+            res.status(400).json('algo raro paso')
+        }
+    })
+
+    app.get('/usuarios', async(req,res)=> {
+        try {
+            let resultado = await usersServices.listarUsuarios();
+            res.render('adminUser', {results:resultado});
+            res.send(200,resultado)
+        }catch (err){
+            console.log(err)
+            res.status(400).json('Error al dirigirse a la ruta vistas')
+        }
     })
 }

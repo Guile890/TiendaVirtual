@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.80.0">
+    <title>Tecla Tienda Online</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
+
+    
+
+    <!-- Bootstrap core CSS -->
+    <link href="/back-end/public/css/bootstrap.min.css" rel="stylesheet">
+   
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="/back-end/public/css/productos.css" rel="stylesheet">
+    
+  </head>
+  <body class="bg-light">
+    
+    <div class="container">
+      <main>
+       
+    
+        <div class="row g-8 ">
+          
+          <div class="col-md-12 col-lg-12">
+            <img class="d-block mx-auto mb-4" src="/back-end/public/icons/itemicon.png" alt="" width="96" height="99">
+            <h4 class="mb-3 text-center">Agregar Usuario</h4>  
+            <hr class="my-4">          
+            <form id="nuevoForm" method="POST" class="row g-3 needs-validation" novalidate >
+                  <div class="col-sm-2">
+    
+                  </div>
+                <div class="col-sm-2">
+                  <label for="GET-descripcion" class="form-label">Nombres</label>
+                  <input type="text" class="form-control" id="GET-Nombres" placeholder="" value="" required>
+                  <div class="invalid-feedback">
+                    Descripción es un campo obligatorio.
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                    <label for="GET-descripcion" class="form-label">Apellidos</label>
+                    <input type="text" class="form-control" id="GET-Apellidos" placeholder="" value="" required>
+                    <div class="invalid-feedback">
+                      Descripción es un campo obligatorio.
+                    </div>
+                  </div>
+    
+                <div class="col-sm-2">
+                  <label for="GET-precio" class="form-label">Email</label>
+                  <input type="text" class="form-control" id="GET-Email" placeholder="" value="" required>
+                  <div class="invalid-feedback">
+                    Precio es un campo obligatorio
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                    <label for="GET-existencia" class="form-label">Contraseña</label>
+                    <input type="text" class="form-control" id="GET-Contraseña" placeholder="" value="" required>
+                    <div class="invalid-feedback">
+                      Existencia es un campo obligatorio.
+                    </div>
+                  </div>
+             
+                <div class="col-sm-2">
+    
+                </div>
+                <div class="col-sm-2">
+    
+                </div>
+                <div class="col-4">
+                  <label for="GET-imagen" class="form-label">Imagen <span class="text-muted"></span></label>
+                  <input type="text" class="form-control" id="GET-imagenes" required>
+                  <div class="invalid-feedback">
+                    Imagen es un campo obligatorio
+                  </div>
+                </div>
+                <div class="col-4">
+                  <label for="GET-categoria" class="form-label">Categoria <span class="text-muted"></span></label>
+                  <input type="text" class="form-control" id="GET-categorias" required>
+                  <div class="invalid-feedback">
+                    Categoria es un campo obligatorio
+                  </div>
+                </div>
+                <div class="col-sm-2">
+    
+                </div>
+            
+    
+              <hr class="my-4">
+              <div style="text-align: center;">
+                <a href="/listProducto" id="submit" class="btn btn-secondary btn-lg " tabindex="-1" role="button" aria-disabled="true">Ver Productos</a>
+                <button type="submit" id="agregar" class="btn btn-primary btn-lg" >Agregar</button>
+              </div>
+              
+            </form>
+          </div>
+        </div>
+      </main>
+    
+      <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">&copy; 2021 Tienda Virtual Tecla</p>
+        <ul class="list-inline">
+          <li class="list-inline-item"><a href="#">Privacidad</a></li>
+          <li class="list-inline-item"><a href="#">Terminos y Condiciones</a></li>
+          <li class="list-inline-item"><a href="#">Soporte</a></li>
+        </ul>
+      </footer>
+    </div>
+    
+    
+        <script src="/back-end/public/js/createProducto.js"></script>
+        <script src="/back-end/public/js/bootstrap.bundle.min.js"></script>
+        <script src="/back-end/public/js/validaciones.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"> </script> 
+    
+          <!-- <script src="form-validation.js"></script> -->
+      </body>
+</html>

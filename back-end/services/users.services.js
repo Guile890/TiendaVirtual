@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 module.exports.listarUsuarios = async () =>{
     try{
-        let resultado = await sequelize.query('SELECT * FROM dbo.Usuario')
+        let resultado = await dbUsuarios.listar();
         return resultado;
     }catch(err){
         throw new Error ('Ocurrio un problema en la consulta con la db ')
@@ -20,6 +20,7 @@ module.exports.verificarUsuario = async (usr)=>{
             return resultado
         }else {
             throw new Error ('No existe el usuario')
+            
         }
     }catch (err){
         console.log(err)
@@ -58,7 +59,7 @@ module.exports.generaToken = async (data)=>{
 
 module.exports.crearUsuario = async (usuarioNuevo)=>{
     try {
-        let resultado = await this.verificarUsuario(usuarioNuevo)
+        let resultado = await dbUsuarios.existenciaDeUsuario(usuarioNuevo)
         if (resultado) {
             throw new Error ('El usuario ya existe')
         }else {
@@ -69,5 +70,22 @@ module.exports.crearUsuario = async (usuarioNuevo)=>{
     }catch (err){
         console.log(err)
         throw new Error ('no pude generar el usuario')
+    }
+}
+
+module.exports.modificarUsuario = async (usuarioMod)=>{
+    try {
+        let usuarioResultado = await dbUsuarios.modUsuario(usuarioMod);   
+        return usuarioResultado
+    }catch (err){
+        throw err
+    }
+}
+module.exports.eliminarUsuario = async (email)=>{
+    try {
+        let usuarioResultado = await dbUsuarios.eliminarUsuario(email);   
+        return usuarioResultado     
+    }catch (err){
+        throw err
     }
 }

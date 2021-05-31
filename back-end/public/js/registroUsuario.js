@@ -1,6 +1,6 @@
-const formulario = document.getElementById("formulario");
-const nombre = document.getElementById('firstname');
-const apellidos = document.getElementById('lastname');
+const registro = document.getElementById('submit');
+const nombre = document.getElementById('firstName');
+const apellidos = document.getElementById('lastName');
 const email = document.getElementById('email');
 const movil = document.getElementById('celular');
 const telefono = document.getElementById('telefono');
@@ -24,14 +24,22 @@ const contrasena2 = document.getElementById('pass2');
         this.cp= cp, 
         this.contrasena= contrasena,
         this.usuario= email,
-        this.fechaAlta= " ", 
-        this.idEstatus= " "
+        this.bandera_admin= 2,
+        this.fechaAlta= 2021, 
+        this.idEstatus= 1
         
+    }
+    static async recuperaUsuario () {
+        let resultado = await JSON.parse(localStorage.getItem('dataUsuario'))
+        return resultado
     }
 }*/
 
-formulario.addEventListener('submit', async (event) => {
+registro.addEventListener('click', async (event) => {
     event.preventDefault();
+    //UsuarioNuevo.recuperaUsuario(new UsuarioNuevo(email.value, contrasena.value,nombre.value,apellidos.value,movil.value,telefono.value,ciudad.value,estado.value,cp.value,));
+   console.log("boton");
+   
     let resultado = await fetch("http://localhost:3000/registro", { // /nuevousuarios
         method: 'post',
         headers: {
@@ -47,7 +55,10 @@ formulario.addEventListener('submit', async (event) => {
             "ciudad": ciudad.value,
             "estado": estado.value,
             "cp": cp.value,
+            "bandera_admin": '2',
             "contrasena": contrasena.value,
+            "fechaAlta": '2021', 
+            "idEstatus": '1'
             
         })
     })
@@ -65,5 +76,6 @@ function nuevoFormulario(){
     estado.value=" ";
     cp.value=" ";
     contrasena.value=" ";
+    contrasena2.value=" ";
     email.value=" ";
 }

@@ -86,4 +86,37 @@ module.exports.newUsuario = async (usr)=> {
     fechaAlta: usr.fechaAlta, idEstatus: usr.idEstatus  })
 
     return resultado
+
 }
+
+module.exports.modUsuario = async (usr) => {
+    let usuarioMod = await Usuarios.findOne({where: {email: usr.email}});
+    if(usuarioMod != null){
+      usuarioMod.nombres = usr.nombres;
+      usuarioMod.apellidos = usr.apellidos;
+      usuarioMod.mail= usr.mail;
+      usuarioMod.usuario = usr.usuario;
+      usuarioMod.pass = usr.pass
+      usuarioMod.save();
+      return 'Usuario modificado'
+    }
+    else{
+      throw new Error('No existe usuario')
+    }
+  }
+
+module.exports.eliminarUsuario = async (email) => {
+    let usuarioEli = await Usuarios.findOne({where: {email: email}});
+    if(usuarioEli != null){
+      usuarioEli.destroy();
+      return 'Usuario eliminado'
+    }
+    else{
+      throw new Error('No existe usuario')
+    }
+  } 
+
+  module.exports.listar = async () => {
+    let resultado = await sequelize.query('SELECT * FROM usuarios')
+    return resultado[0]
+  }
