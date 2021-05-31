@@ -29,10 +29,11 @@
                   <div class="col-sm-4">
                     <label for="firstName" class="form-label">Tipo de Usuario</label>
                       
-                      <select value="<%= result.admin_bandera %>" id="admin_bandera" name="tipo_usuario"
+                      <select value="<%=result.bandera_admin%>" id="admin_bandera" name="tipo_usuario"
                         class="form-select" tabindex="6" required>
-                        <option <%=result.admin_bandera=='1' ? "selected" : '' %> value="1">Administrador</option>
-                        <option <%=result.admin_bandera=='2' ? "selected" : '' %> value="2">Usuario</option>
+                        
+                        <option value="1" <%=result.bandera_admin=='1' ? "selected" : '' %> >Administrador</option>
+                        <option value="2"<%=result.bandera_admin=='2' ? "selected" : '' %> >Usuario</option>
                       </select>
                     
                   </div>
