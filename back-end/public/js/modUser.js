@@ -9,44 +9,24 @@ const estado = document.getElementById('state');
 const cp = document.getElementById('zip');
 const contrasena = document.getElementById('pass');
 const contrasena2 = document.getElementById('pass2');
-
-
-
-/*class UsuarioNuevo {
-    constructor(nombre,apellidos,email,movil,telefono,ciudad,estado,cp,contrasena){
-        this.nombre = nombre, 
-        this.apellidos= apellidos, 
-        this.email= email , 
-        this.movil= movil, 
-        this.telefono= telefono, 
-        this.ciudad= ciudad, 
-        this.estado= estado, 
-        this.cp= cp, 
-        this.contrasena= contrasena,
-        this.usuario= email,
-        this.bandera_admin= 2,
-        this.fechaAlta= 2021, 
-        this.idEstatus= 1
-        
-    }
-    static async recuperaUsuario () {
-        let resultado = await JSON.parse(localStorage.getItem('dataUsuario'))
-        return resultado
-    }
-}*/
+const id = document.getElementById('idUser');
+const bandera_admin = getElementById('admin_bandera');
 
 registro.addEventListener('click', async (event) => {
     event.preventDefault();
     //UsuarioNuevo.recuperaUsuario(new UsuarioNuevo(email.value, contrasena.value,nombre.value,apellidos.value,movil.value,telefono.value,ciudad.value,estado.value,cp.value,));
    console.log("boton");
+   let data = await JSON.parse(localStorage.getItem('dataUsuario'))
    
-    let resultado = await fetch("http://localhost:3000/registro", { // /nuevousuarios
+    let resultado = await fetch("http://localhost:3000/modificar", { // /nuevousuarios
         method: 'post',
         headers: {
             "Accept": "application/json, text/plain, *,*",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${data.token}`
         },
         body: JSON.stringify( {
+            "id": parseInt(id.textContent),
             "nombre": nombre.value,
             "apellidos": apellidos.value,
             "email": email.value,
@@ -55,30 +35,25 @@ registro.addEventListener('click', async (event) => {
             "ciudad": ciudad.value,
             "estado": estado.value,
             "cp": cp.value,
-            "bandera_admin": '2',
+            "bandera_admin": bandera_admin.value,
             "contrasena": contrasena.value,
             "fechaAlta": '2021', 
             "idEstatus": '1'
             
         })
     })
+    if(resultado.status == 400){
+        swal({
+            title: "No tienes permiso para modificar",
+            icon: "error",
+          });
+    } else {
     swal({
-        title: "Usuario registrado correctamente",
+        title: "Se actualizo la informacion del usuario correctamente",
         icon: "success",
       });
-    nuevoFormulario()
+      setTimeout(() => {
+        location.href = '/usuarios'
+    }, 3000);
+    }
 })
-
-function nuevoFormulario(){
-    nombre.value=" ";
-    apellidos.value=" ";
-    email.value=" ";
-    movil.value=" ";
-    telefono.value=" ";
-    ciudad.value=" ";
-    estado.value=" ";
-    cp.value=" ";
-    contrasena.value=" ";
-    contrasena2.value=" ";
-    email.value=" ";
-}

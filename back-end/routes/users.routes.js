@@ -77,14 +77,17 @@ module.exports = (app) => {
 
     })
 
-    app.put('/modificar', async (req, res)=>{
+    app.post('/modificar',middJsonAuth.verificacionUsuario, async (req, res)=>{
         let usuMod = req.body
         try {
             let resultado = await usersServices.modificarUsuario(usuMod)
-            res.status(200).json('usuario modificado correctamente')
+            if(resultado){
+                res.redirect('/usuarios');
+                res.send(200,resultado);
+            }
         }catch (err){
             console.log(err)
-            res.status(400).json('algo raro paso')
+            res.status(400).json('Error al modificar usuario')
         }
     })
     
@@ -107,6 +110,17 @@ module.exports = (app) => {
         }catch (err){
             console.log(err)
             res.status(400).json('Error al dirigirse a la ruta vistas')
+        }
+    })
+
+    app.get('/edit/:id', async (req,res)=>{
+        let data = req.params.id;
+        try {
+            let resultado = await usersServices.buscarUsuario(data)
+            res.render('adminEditUser.ejs', {result:resultado.dataValues })
+            res.send(200,resultado[id]);
+        }catch (err){
+            res.status(400).json('Error al dirigirse a la pagina EDITAR')
         }
     })
 }

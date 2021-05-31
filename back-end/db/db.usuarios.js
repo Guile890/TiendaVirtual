@@ -120,3 +120,14 @@ module.exports.eliminarUsuario = async (email) => {
     let resultado = await sequelize.query('SELECT * FROM usuarios')
     return resultado[0]
   }
+
+  module.exports.buscarUsuarios = async (data) => {
+    try{
+      let resultado = await Usuarios.findAll({
+        where: { id : data }
+      })
+      return resultado[0]
+    }catch (err) {
+      throw new Error (err)
+    }
+  }

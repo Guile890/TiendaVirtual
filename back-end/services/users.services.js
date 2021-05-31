@@ -89,3 +89,11 @@ module.exports.eliminarUsuario = async (email)=>{
         throw err
     }
 }
+module.exports.buscarUsuario = async (data)=>{
+    try {
+        let resultado = await dbUsuarios.buscarUsuarios(data)
+        return resultado
+    }catch (err) {
+        throw new Error ('Ocurrio un problema en el controlador al BUSCAR usuario')
+    }
+}

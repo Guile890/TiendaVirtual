@@ -2,19 +2,13 @@
 
   <body>
     <%- include("cabeceras/cabecera.header.ejs") %>
-    <h1 class="p-3 text-center">Listado de Usuarios</h1>
+    <h1 class="p-3 text-center">Usuarios</h1>
 
     <div class="container">
       <!-- referencia a ruta create-->
-      <div class="p-2">
-        <a href="/admin" class="btn btn-outline-primary">Regresar</a>
-      </div>
-      <!-- referencia a ruta create-->
-      <div class="d-flex flex-row-reverse">
-        <a href="/registro" class="btn btn-outline-primary mt-4"><i class='bx bxs-plus-circle bx-md'></i></a>
-      </div>
-      <table class="table table-dark table-striped text-center mt-4">
-        <thead>
+     
+      <table class="table  table-striped text-center mt-4">
+        <thead class="table-dark">
           <tr class="bg-primary text-white">
             <th scope="col">ID</th>
             <th scope="col">NOMBRES</th>
@@ -47,9 +41,10 @@
                     <% } %>
               </td>
               <td>
-                <a href="/modificar/<%= user.id%>" class="btn btn-outline-info"><i class='bx bxs-edit'></i></a>
-                <a onclick="eliminar('<%= user.id %>')" class="btn btn-outline-danger"><i
-                    class='bx bxs-trash-alt'></i></a>
+                <a href="/edit/<%= user.id%>" class="btn btn-info"><i class='bx bxs-edit'></i></a>
+                <a onclick="eliminar('<%= user.id %>')" class="btn btn-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-x-fill" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6.146-2.854a.5.5 0 0 1 .708 0L14 6.293l1.146-1.147a.5.5 0 0 1 .708.708L14.707 7l1.147 1.146a.5.5 0 0 1-.708.708L14 7.707l-1.146 1.147a.5.5 0 0 1-.708-.708L13.293 7l-1.147-1.146a.5.5 0 0 1 0-.708z"/>
+                </svg></a>
               </td>
             </tr>
             <% }) %>
@@ -57,6 +52,18 @@
         </tbody>
       </table>
     </div>
+    <hr class="my-4">
+              <div style="text-align: center;">
+                <a href="/admin" id="submit" class="btn btn-secondary btn-lg " tabindex="-1" role="button"
+                  aria-disabled="true">Regresar</a>
+                <a href="/registro" class="btn btn-primary btn-lg" tabindex="-1" role="button" aria-disabled="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
+                    <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                    <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                    </svg>Agregar
+                </a>
+              </div>
+    
 
     <%- include("cabeceras/cabecera.footer.ejs") %>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
