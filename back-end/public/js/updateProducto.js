@@ -1,10 +1,11 @@
-class Producto {
-    constructor(descripcion, precio, existencia, imagen, categoria) {
+class ProductoUpdate {
+    constructor(descripcion, precio, existencia, imagen, categoria, id) {
         this.descripcion = descripcion,
             this.precio = precio,
             this.existencia = existencia,
             this.imagen = imagen,
-            this.categoria = categoria
+            this.categoria = categoria,
+            this.id = id
     }
 }
 // Example starter JavaScript for disabling form submissions if there are invalid fields
@@ -29,14 +30,15 @@ class Producto {
 })()
 const form = document.getElementById('nuevoForm');
 
-form.addEventListener('submit', async (event) => {
+form.addEventListener('submit', async (event,data) => {
     event.preventDefault();
-    let registro = new Producto(
+    let registro = new ProductoUpdate(
         event.target['GET-descripciones'].value,
         event.target['GET-precios'].value,
         event.target['GET-existencias'].value,
         event.target['GET-imagenes'].value,
         event.target['GET-categorias'].value,
+        event.target['GET-ids'].value,
 
     );
     if ((registro.descripcion == null || registro.descripcion == "") && (registro.precio == null || registro.precio == "") && (registro.existencia == null || registro.existencia == "")
@@ -48,7 +50,7 @@ form.addEventListener('submit', async (event) => {
     }else{
         try {
             console.log('valor a agregar',registro)
-            let resultado = await fetch("http://localhost:3000/producto",{
+            let resultado = await fetch("http://localhost:3000/producto/update",{
                 method: 'post',
                 headers: {
                     "Accept": "application/json, text/plain, *,*",
@@ -58,7 +60,7 @@ form.addEventListener('submit', async (event) => {
             })
             if(resultado.ok){
                 swal({
-                    text: "Producto agregado correctamente",
+                    text: "Producto editado correctamente",
                     icon: "success",
                     button: "Ok",
                 });
@@ -79,43 +81,3 @@ form.addEventListener('submit', async (event) => {
    
     
 })
-
-
-// let agregar = async () => {
-//     let registro = new Producto(
-//         document.getElementById('GET-descripciones').value,
-//         document.getElementById('GET-precios').value,
-//         document.getElementById('GET-existencias').value,
-//         document.getElementById('GET-imagenes').value,
-//         document.getElementById('GET-categorias').value,
-
-//     );
-//     console.log('registro', registro)
-//     // try {
-//     //     validarTxt(registro.descripcion, "descripción")
-//     //     validarTxt(registro.precio, "precio")
-//     //     validarTxt(registro.existencia, "existencia")
-//     //     validarTxt(registro.imagen, "imagen")
-//     //     validarTxt(registro.categoria, "categoria")
-
-//     //     // let resultado = await nuevoUsuario(usuarioNuevo)
-//     //     // if (resultado) {
-//     //     //     console.log(resultado)
-//     //     //     alert('Usuario creado correctamente')
-//     //     // }
-
-//     // } catch (err) {
-//     //     console.log(err)
-//     //     swal({
-//     //         text: `${err.message}`,
-//     //         button: "Ok!",
-//     //     });
-//     // }
-
-// }
-
-
-
-
-// let botonAgregar = document.getElementById('agregar')
-// botonAgregar.addEventListener('click', agregar, false)
